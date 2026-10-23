@@ -56,7 +56,7 @@ In an older tale, a certain figure once styled himself a *giver of gifts*. We pr
 ## Contact
 
 * Email: **[annatar.ai@proton.me](mailto:annatar.ai@proton.me)**
-* LinkedIn: **[https://www.linkedin.com/in/thirdechelon.com](https://www.linkedin.com/in/thirdechelon.com)**
+* LinkedIn: **[https://www.linkedin.com/in/thirdechelon](https://www.linkedin.com/in/thirdechelon)**
 
 ---
 
