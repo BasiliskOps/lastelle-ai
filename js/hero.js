@@ -28,7 +28,10 @@ async function start(host) {
   host.appendChild(renderer.domElement);
 
   // ---------- data ----------
-  const buf = await fetch(host.dataset.points).then(r => r.arrayBuffer());
+  const src = host.dataset.points;
+  const buf = src.endsWith('.txt')
+    ? await fetch(src).then(r => r.text()).then(t => Uint8Array.from(atob(t.trim()), c => c.charCodeAt(0)).buffer)
+    : await fetch(src).then(r => r.arrayBuffer());
   const TOTAL = buf.byteLength / 5;
   const N = mobile ? 70000 : TOTAL;
   const xy = new Int16Array(buf, 0, TOTAL * 2);
