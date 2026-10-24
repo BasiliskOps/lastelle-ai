@@ -2,185 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Annatar — AI products and solutions architecture</title>
-  <meta name="description" content="Annatar builds AI products and the architecture that carries them into production: agentic systems, orchestration layers, and the infrastructure beneath them." />
-  <meta name="color-scheme" content="dark" />
-  <meta property="og:title" content="Annatar — AI products and solutions architecture" />
-  <meta property="og:description" content="Agentic systems, orchestration, and AI infrastructure for teams intent on moving faster than their market." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Annatar — Products for effective acceleration and AI solutions architecture</title>
+  <meta name="description" content="I build products for effective acceleration and design the AI architecture that carries agentic systems into production." />
+  <meta name="theme-color" content="#ECE6D9" />
+  <meta property="og:title" content="Annatar" />
+  <meta property="og:description" content="Products for effective acceleration and AI solutions architecture." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='100%25' height='100%25' fill='%230b0f14'/%3E%3Ctext x='50%25' y='52%25' fill='%23e5e7eb' font-family='Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto' font-size='72' text-anchor='middle'%3EAnnatar — Applied AI%3C/text%3E%3C/svg%3E" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b0f14'/%3E%3Cpath d='M50 18 L72 82 H60 L53 62 H47 L40 82 H28z' fill='%237c3aed'/%3E%3C/svg%3E" />
-  <style>
-    :root{
-      --bg: #000000;
-      --panel: #0f1115;
-      --text: #e5e7eb;
-      --muted: #a1a1aa;
-      --maxw: 72rem;
-      --radius: 1.25rem;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      /* Liquid glass theme */
-      --glass-border: rgba(255,255,255,0.16);
-      --glass-fill-1: rgba(255,255,255,0.10);
-      --glass-fill-2: rgba(255,255,255,0.04);
-      --glass-sheen: rgba(255,255,255,0.45);
-      --accent-a: #7c3aed; /* subtle violet hue in motion */
-      --accent-b: #22d3ee; /* subtle cyan hue in motion */
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, rgba(255,255,255,.06), transparent 60%),
-                                       radial-gradient(900px 600px at 90% 10%, rgba(255,255,255,.04), transparent 60%), var(--bg);
-      font: 400 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-    }
-    a{color:inherit; text-decoration:none}
-    .container{max-width:var(--maxw); margin:0 auto; padding: 0 1.25rem}
-    .skip{position:absolute; left:-9999px}
-    .skip:focus{left:1rem; top:1rem; background:var(--panel); padding:.5rem .75rem; border-radius:.5rem}
-
-    /* Liquid glass primitives */
-    .glass{
-      position: relative;
-      border-radius: var(--radius);
-      border: 1px solid var(--glass-border);
-      background: linear-gradient(180deg, var(--glass-fill-1), var(--glass-fill-2));
-      backdrop-filter: blur(16px) saturate(120%);
-      -webkit-backdrop-filter: blur(16px) saturate(120%);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 12px 32px rgba(0,0,0,.5);
-      overflow: hidden;
-      --flow: 0deg;
-      animation: glassFlow 12s linear infinite;
-    }
-    /* Soft animated internal caustics */
-    .glass::before{
-      content:""; position:absolute; inset:-2px;
-      background: conic-gradient(from var(--flow), rgba(255,255,255,0.08), transparent 35% 65%, rgba(255,255,255,0.08)),
-                  radial-gradient(120% 60% at 10% 0%, rgba(124,58,237,0.10), transparent 50%),
-                  radial-gradient(120% 60% at 90% 0%, rgba(34,211,238,0.10), transparent 50%);
-      filter: blur(18px);
-      pointer-events: none;
-    }
-    /* Subtle diagonal sheen that sweeps occasionally */
-    .glass::after{
-      content:""; position:absolute; top:-150%; left:-50%; width:60%; height:400%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.18) 45%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.18) 55%, transparent 100%);
-      transform: rotate(12deg) translateX(-120%);
-      opacity:0; pointer-events:none;
-      animation: sheen 14s ease-in-out infinite;
-    }
-
-    /* Reveal-on-scroll */
-    [data-animate]{opacity:0; transform: translateY(10px) scale(.995); filter: saturate(.9);
-      transition: opacity .6s ease, transform .6s ease, filter .6s ease;}
-    .reveal{opacity:1 !important; transform:none !important; filter:none !important;}
-
-    /* Nav */
-    header{position:sticky; top:0; z-index:50; border-bottom:1px solid rgba(255,255,255,.12)}
-    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
-    .brand{display:flex; align-items:center; gap:.7rem; font-weight:600}
-    .logo{width:28px; height:28px; border-radius:.7rem; color:var(--text); background:linear-gradient(145deg, #1c1f24, #0e1116); display:grid; place-items:center; box-shadow: 0 8px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08)}
-    .logo svg{width:18px; height:18px}
-    nav ul{display:flex; gap:1rem; list-style:none; padding:0; margin:0}
-    .link{opacity:.85}
-    .link:hover{opacity:1}
-    .menu-btn{display:none}
-
-    /* Hero */
-    .hero{padding: 6rem 0 4rem}
-    .headline{font-size:clamp(2rem, 5vw, 3.2rem); line-height:1.1; letter-spacing:-0.02em; margin:0 0 1rem}
-    .sub{color:var(--muted); max-width:60ch; margin:0 0 2rem}
-    .cta{display:flex; gap:1rem; flex-wrap:wrap}
-
-    /* Buttons upgrade */
-    .btn{position:relative; display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 1.1rem; border-radius:999px; border:1px solid var(--glass-border);
-         background: linear-gradient(180deg, var(--glass-fill-1), var(--glass-fill-2)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-         box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 10px 28px rgba(0,0,0,.45); transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease; overflow:hidden}
-    .btn::before{content:""; position:absolute; inset:0; background: radial-gradient(120% 80% at 50% -20%, rgba(255,255,255,.18), transparent 30%), linear-gradient(180deg, rgba(255,255,255,.05), transparent); opacity:.7; pointer-events:none}
-    .btn::after{content:""; position:absolute; top:-120%; left:-20%; width:60%; height:300%; background: linear-gradient(90deg, rgba(255,255,255,.35), rgba(255,255,255,0) 60%); transform: rotate(12deg) translateX(0); opacity:0; transition: transform .6s ease, opacity .6s ease; pointer-events:none}
-    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 12px 30px rgba(0,0,0,.5)}
-    .btn:hover::after{opacity:.6; transform: rotate(12deg) translateX(260%)}
-    .btn.secondary{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border-color:rgba(255,255,255,.14)}
-
-    /* Feature grid */
-    .grid{display:grid; gap:1rem}
-    @media(min-width:720px){.grid{grid-template-columns: repeat(3, 1fr)}}
-
-    /* Card/Panel use glass base */
-    .card, .panel{padding:1.25rem}
-    .card h3{margin:.25rem 0 .25rem; font-size:1.1rem}
-    .badge{display:inline-block; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
-    .kicker{color:var(--muted); margin:.25rem 0 0}
-
-    /* Footer */
-    footer{border-top:1px solid rgba(255,255,255,.14); margin-top:4rem}
-    .foot{display:flex; gap:1rem; align-items:center; justify-content:space-between; padding:1.25rem 0; color:var(--muted); font-size:.95rem}
-    .social{display:flex; gap:.75rem}
-
-    /* Motion keyframes */
-    @keyframes sheen{ 0%, 78% {opacity:0; transform: rotate(12deg) translateX(-130%);} 80% {opacity:.8;} 100% {opacity:0; transform: rotate(12deg) translateX(200%);} }
-    @keyframes glassFlow{ to { --flow: 360deg; } }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .glass, .glass::after{animation:none}
-      [data-animate]{transition:none}
-    }
-
-    /* Mobile menu */
-    @media(max-width:860px){
-      .menu-btn{display:inline-flex; align-items:center; gap:.4rem; border:1px solid rgba(148,163,184,.2); background:transparent; color:var(--text); padding:.5rem .7rem; border-radius:.6rem}
-      nav ul{display:none}
-      nav.open ul{display:flex; position:absolute; top:64px; right:1rem; flex-direction:column; border:1px solid var(--glass-border); border-radius:.75rem; padding:.5rem; width:min(240px, 90vw)}
-      nav.open ul a{padding:.6rem .5rem; border-radius:.5rem}
-      nav.open ul a:hover{background:#0f1319}
-    }
-
-    /* Background equations canvas (unchanged area uses #bg-matrix) */
-    #bg-matrix{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:0}
-    header, main, footer{position:relative; z-index:1}
-
-    /* Nav pills (individual glass buttons) */
-    .navpill{position:relative; display:inline-flex; align-items:center; gap:.35rem; padding:.55rem .9rem; border-radius:999px; border:1px solid var(--glass-border); background:linear-gradient(180deg, var(--glass-fill-1), var(--glass-fill-2)); backdrop-filter: blur(10px) saturate(120%); -webkit-backdrop-filter: blur(10px) saturate(120%); box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 6px 18px rgba(0,0,0,.35);}
-    .navpill:hover{border-color:rgba(255,255,255,.28)}
-
-    /* Contact form layout + field styling */
-    #contact-form{display:grid; gap:1rem;}
-    #contact-form label{display:flex; flex-direction:column; gap:.35rem;}
-    @media(min-width:720px){ #contact-form{grid-template-columns: 1fr 1fr;} #contact-form label:nth-of-type(3){grid-column:1 / -1;} }
-    #contact-form .actions{grid-column:1 / -1; display:flex; gap:.75rem; flex-wrap:wrap; align-items:center;}
-    #contact-form > p.help{grid-column:1 / -1;}
-    input, textarea{width:100%; padding:.85rem 1rem; border-radius:.9rem; border:1px solid var(--glass-border); background:linear-gradient(180deg, var(--glass-fill-1), var(--glass-fill-2)); color:var(--text); backdrop-filter: blur(10px) saturate(120%); -webkit-backdrop-filter: blur(10px) saturate(120%); box-shadow: inset 0 1px 0 rgba(255,255,255,.10);}
-    input::placeholder, textarea::placeholder{color:rgba(229,231,235,.6);}
-
-    /* Button sizing override for consistency between <button> and <a> */
-    .btn{min-height:44px; font-weight:600; line-height:1.1;}
-    button.btn{appearance:none; -webkit-appearance:none;}
-  
-
-    /* ===== Feature toggles (remove body classes to revert) ===== */
-    /* Spacing between sections */
-    body.feat-sectiongap main>section{ margin-bottom:4rem; }
-
-    /* Nav underline + wider spacing */
-    body.feat-navunderline nav ul{ gap:1.25rem; }
-    body.feat-navunderline .navpill{overflow:hidden}
-    body.feat-navunderline .navpill::after{content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.6), rgba(255,255,255,0)); transform:scaleX(0); transform-origin:center; transition:transform .25s ease}
-    body.feat-navunderline .navpill:hover::after, body.feat-navunderline .navpill:focus-visible::after{transform:scaleX(1)}
-
-    /* Parallax-ready hero glass */
-    body.feat-parallax .hero .glass{will-change:transform; transform-style:preserve-3d; transition: transform .12s ease}
-
-    /* Floating labels */
-    body.feat-floatlabels #contact-form label{position:relative}
-    body.feat-floatlabels #contact-form label .help{position:absolute; left:14px; top:12px; transform-origin:left top; padding:0 .25rem; transition: transform .18s ease, opacity .18s ease, color .18s ease; pointer-events:none; opacity:.85}
-    body.feat-floatlabels #contact-form input, body.feat-floatlabels #contact-form textarea{padding-top:1.8rem}
-    body.feat-floatlabels #contact-form label.active .help{transform: translateY(-10px) scale(.85); opacity:.95; color:#fff}
-
-  </style>
-
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070403'/%3E%3Crect x='17' y='17' width='30' height='30' fill='none' stroke='%23E2A15A' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23E2A15A' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='2.6' fill='%23F3E6CF'/%3E%3C/svg%3E" />
+  <link rel="preload" href="assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/michroma-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/vitruvian.bin" as="fetch" crossorigin />
+  <link rel="stylesheet" href="css/site.css" />
+  <script type="importmap">
+  { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -192,291 +28,147 @@
   }
   </script>
 </head>
-<body class="feat-parallax feat-navunderline feat-floatlabels feat-sectiongap">
-  <canvas id="bg-matrix" aria-hidden="true"></canvas>
+<body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- Header uses liquid glass -->
-  <header class="glass" data-animate>
-    <div class="container nav">
-      <a href="#" class="brand" aria-label="Annatar home">
-        <span class="logo" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l7 18h-3l-1.8-5H9.8L8 21H5l7-18z" fill="currentColor"/></svg>
-        </span>
-        <span>Annatar</span>
-      </a>
-      <nav id="site-nav">
-        <button class="menu-btn" aria-expanded="false" aria-controls="menu" onclick="toggleMenu(this)">Menu</button>
-        <ul id="menu" role="menu">
-          <li><a class="link navpill" href="#services">Services</a></li>
-          <li><a class="link navpill" href="#about">About</a></li>
-          <li><a class="link navpill" href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="Annatar, home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="7.5" y="7.5" width="17" height="17"/><circle cx="16" cy="16" r="10.5"/><circle class="dot" cx="16" cy="16" r="1.6"/></svg>
+      <span class="brand-word">ANNATAR</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Primary">
+      <a href="#practice">Practice</a>
+      <a href="#method">Method</a>
+      <a href="#about">About</a>
+      <a class="nav-cta" href="#contact"><span>Start a project</span></a>
+    </nav>
+    <button class="menu" id="menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span class="sr">Menu</span></button>
   </header>
 
   <main id="main">
-    <section class="hero container">
-      <div class="glass" style="padding:1.25rem" data-animate>
-        <p class="badge">Effective acceleration, applied</p>
-        <h1 class="headline">Annatar builds AI products and the architecture that carries them into production.</h1>
-        <p class="sub">We design agentic systems, orchestration layers, and the infrastructure beneath them for teams intent on moving faster than their market. Each engagement ends in working software with clear ownership, measured performance, and room to scale.</p>
-        <div class="cta">
-          <a class="btn" href="#contact" aria-label="Jump to contact">Contact us</a>
-          <a class="btn secondary" href="#services" aria-label="See our services">See services</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="services" class="container" aria-labelledby="services-title">
-      <h2 id="services-title" class="badge" style="margin-bottom: .75rem;" data-animate>Services</h2>
-      <div class="grid">
-        <article class="card glass" data-animate>
-          <div class="badge">Architecture</div>
-          <h3>Solutions architecture</h3>
-          <p class="kicker">Reference designs for model selection, retrieval, orchestration, and evaluation, fitted to your data and risk posture.</p>
-        </article>
-        <article class="card glass" data-animate>
-          <div class="badge">Agents</div>
-          <h3>Agentic systems</h3>
-          <p class="kicker">Multi-agent workflows across Claude, OpenAI, and xAI that take on real operational work, with human checkpoints placed where judgment matters.</p>
-        </article>
-        <article class="card glass" data-animate>
-          <div class="badge">Products</div>
-          <h3>Products</h3>
-          <p class="kicker">Software we build and release under our own name to speed up the people and industries pushing technology forward.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="about" class="container" style="margin-top:3rem" aria-labelledby="about-title">
-      <h2 id="about-title" class="badge" style="margin-bottom:.75rem;" data-animate>About</h2>
-      <div class="panel glass" data-animate>
-        <p><strong>Annatar</strong> is an applied AI studio founded by Damien Rosecraft. Our work divides between products we ship ourselves in the spirit of effective acceleration and solutions architecture for organizations putting language models, agents, and automated pipelines into live operations.</p>
-        <p>A background in military intelligence and cloud infrastructure shapes how we build, with auditable designs, strong security defaults, and systems that hold up when the stakes are high.</p>
-      </div>
-    </section>
-
-    <section id="contact" class="container" style="margin-top:3rem" aria-labelledby="contact-title">
-      <h2 id="contact-title" class="badge" style="margin-bottom:.75rem;" data-animate>Contact</h2>
-      <div class="contact">
-        <form id="contact-form" action="https://formspree.io/f/REPLACE_ME" data-endpoint="https://formspree.io/f/REPLACE_ME" method="POST" class="panel glass" data-animate>
-          <label>
-            <span class="help">Your name</span>
-            <input name="name" autocomplete="name" placeholder="Jane Doe" required />
-          </label>
-          <label>
-            <span class="help">Email</span>
-            <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
-          </label>
-          <label>
-            <span class="help">Message</span>
-            <textarea name="message" rows="5" placeholder="Tell us a bit about your project" required></textarea>
-          </label>
-          <div class="actions">
-            <button class="btn" type="submit">Send message</button>
-            <a class="btn secondary" download="Damien_Rosecraft.vcf" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0D%0AVERSION%3A3.0%0D%0AN%3ARosecraft%3BDamien%3B%3B%3B%0D%0AFN%3ADamien%20Rosecraft%0D%0AORG%3AAnnatar%0D%0ATITLE%3AFounder%0D%0AEMAIL%3Amailto%3Aannatar.ai%40proton.me%0D%0AURL%3Ahttps%3A%2F%2Fwww.linkedin.com%2Fin%2Fthirdechelon%0D%0AEND%3AVCARD">Download vCard</a>
+    <section class="hero" id="top" aria-label="Introduction">
+      <div class="hero-card" id="hero-card">
+        <div class="hero-canvas" id="hero-canvas" data-points="assets/vitruvian.bin" aria-hidden="true"></div>
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <h1 class="hero-title">
+            <span class="line"><span>Intelligence,</span></span>
+            <span class="line"><span>engineered for</span></span>
+            <span class="line"><span><em>acceleration.</em></span></span>
+          </h1>
+          <p class="hero-sub">I design AI architecture and agentic systems for organizations moving faster than their market, and I build products of my own in the spirit of effective acceleration.</p>
+          <div class="hero-actions">
+            <a class="btn btn-bone" href="#contact"><span>Start a project</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+            <a class="btn-link" href="#practice">See the practice</a>
           </div>
-          <p class="help">Prefer email? <a href="mailto:annatar.ai@proton.me">annatar.ai@proton.me</a></p>
-        </form>
-        <div class="panel glass" data-animate>
-          <h3 style="margin-top:0">What you can expect</h3>
-          <ul>
-            <li>A reply within two business days</li>
-            <li>An architecture review scoped to your data, stack, and goals</li>
-            <li>Working software with clear ownership at the end of every engagement</li>
-          </ul>
-          <p class="help">Email us at <a href="mailto:annatar.ai@proton.me">annatar.ai@proton.me</a>.</p>
+        </div>
+        <div class="hero-edge" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="section practice" id="practice" aria-labelledby="practice-title">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal><i></i>Practice</p>
+        <h2 class="statement" id="practice-title" data-reveal>I work where language models meet live operations, and I ship products of my own toward the same end.</h2>
+      </div>
+      <div class="plates">
+        <article class="plate" data-reveal data-tilt>
+          <div class="plate-top">
+            <span class="plate-no">01</span>
+            <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><rect x="8.5" y="8.5" width="31" height="31"/><rect x="16.5" y="16.5" width="15" height="15"/><path d="M8.5 8.5l8 8M39.5 8.5l-8 8M8.5 39.5l8-8M39.5 39.5l-8-8"/></svg>
+          </div>
+          <h3>Solutions architecture</h3>
+          <p>Reference designs for model selection, retrieval, orchestration, and evaluation, fitted to your data, your stack, and your risk posture.</p>
+          <ul class="specs"><li>Model and vendor selection</li><li>Retrieval and memory design</li><li>Evaluation harnesses</li></ul>
+        </article>
+        <article class="plate" data-reveal data-tilt>
+          <div class="plate-top">
+            <span class="plate-no">02</span>
+            <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="14" r="3.5"/><circle cx="36" cy="14" r="3.5"/><circle cx="24" cy="36" r="3.5"/><circle cx="24" cy="22" r="2"/><path d="M15 15.5l7 5.5M33 15.5l-7 5.5M24 24v8.5"/></svg>
+          </div>
+          <h3>Agentic systems</h3>
+          <p>Multi-agent workflows across Claude, OpenAI, and xAI that take on real operational work, with human checkpoints placed where judgment matters.</p>
+          <ul class="specs"><li>Orchestration layers</li><li>Tool and data integration</li><li>Human-in-the-loop controls</li></ul>
+        </article>
+        <article class="plate" data-reveal data-tilt>
+          <div class="plate-top">
+            <span class="plate-no">03</span>
+            <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38c8-1 16-6 22-14s8-14 10-16"/><path d="M33 8h7v7"/><path d="M8 40.5h32"/></svg>
+          </div>
+          <h3>Products</h3>
+          <p>Software I build and release under my own name to speed up the people and industries pushing technology forward.</p>
+          <ul class="specs"><li>Built in the open</li><li>Self-serve by design</li><li>Released as they mature</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section method" id="method" aria-labelledby="method-title">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal><i></i>Method</p>
+        <h2 class="statement" id="method-title" data-reveal>Every engagement ends in working software that you own outright.</h2>
+      </div>
+      <ol class="rail" data-reveal>
+        <li><span class="node"></span><span class="step-no">I</span><h3>Survey</h3><p>I map your data, systems, and constraints, and agree on what success will be measured against.</p></li>
+        <li><span class="node"></span><span class="step-no">II</span><h3>Architect</h3><p>A reference design with the models, retrieval, orchestration, and controls chosen for your case.</p></li>
+        <li><span class="node"></span><span class="step-no">III</span><h3>Build</h3><p>Working software delivered in small, verifiable increments, each one tested against the agreed measures.</p></li>
+        <li><span class="node"></span><span class="step-no">IV</span><h3>Hand over</h3><p>Documentation, evaluation harnesses, and clear ownership, so the system keeps running without me.</p></li>
+      </ol>
+    </section>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="about-grid">
+        <div>
+          <p class="eyebrow" data-reveal><i></i>About</p>
+          <h2 class="statement statement-lg" id="about-title" data-reveal>One builder, from the first call to production.</h2>
+        </div>
+        <div class="about-copy" data-reveal>
+          <p>I'm Damien Rosecraft, and I run Annatar on my own. The person who scopes your system is the same person who designs it, writes it, and stands behind it once it is live.</p>
+          <p>My work divides between architecture for organizations putting language models, agents, and automated pipelines into live operations, and products I release myself to push the frontier a little faster.</p>
+          <a class="btn-link" href="https://www.linkedin.com/in/thirdechelon" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
     </section>
 
-    <section id="privacy" class="container" style="margin-top:3rem" aria-labelledby="privacy-title">
-      <h2 id="privacy-title" class="badge" style="margin-bottom:.75rem;" data-animate>Privacy</h2>
-      <div class="panel glass" data-animate>
-        <p>We do not use cookies or invasive trackers. Analytics are <em>disabled by default</em>. If enabled later, we will use a privacy-friendly, cookieless solution that respects “Do Not Track” and records only aggregate events. No personal profiles, ad retargeting, or cross-site tracking.</p>
-        <p>When you submit the contact form, your message is relayed by a third-party form service so we can receive it. Do not include sensitive information. You can always email us directly at <a href="mailto:annatar.ai@proton.me">annatar.ai@proton.me</a>.</p>
-        <p>Questions or data requests? Email us and we’ll respond promptly.</p>
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="slab">
+        <div class="slab-light" aria-hidden="true"></div>
+        <div class="slab-grid">
+          <div class="slab-intro">
+            <p class="eyebrow eyebrow-dark" data-reveal><i></i>Contact</p>
+            <h2 class="slab-title" id="contact-title" data-reveal>Start a <em>project.</em></h2>
+            <p class="slab-sub" data-reveal>Tell me what you are building. I reply within two business days with a first read on scope and architecture.</p>
+            <a class="slab-mail" href="mailto:annatar.ai@proton.me" data-reveal>annatar.ai@proton.me</a>
+          </div>
+          <form class="form" id="contact-form" data-endpoint="https://formspree.io/f/REPLACE_ME" method="POST" data-reveal>
+            <label class="field"><input name="name" autocomplete="name" placeholder=" " required /><span>Name</span></label>
+            <label class="field"><input type="email" name="email" autocomplete="email" placeholder=" " required /><span>Email</span></label>
+            <label class="field field-wide"><textarea name="message" rows="4" placeholder=" " required></textarea><span>What are you building?</span></label>
+            <div class="form-foot">
+              <button class="btn btn-bone" type="submit"><span>Send</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></button>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="glass" data-animate>
-    <div class="container foot">
-      <div>© <span id="y"></span> Annatar. All rights reserved.</div>
-      <div class="social">
-        <a href="mailto:annatar.ai@proton.me" class="link" aria-label="Email">Email</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://www.linkedin.com/in/thirdechelon" class="link" aria-label="LinkedIn" rel="noopener noreferrer">LinkedIn</a>
-        <span aria-hidden="true">·</span>
-        <a href="#privacy" class="link" aria-label="Privacy">Privacy</a>
-      </div>
+  <footer class="foot">
+    <div class="foot-word" aria-hidden="true">ANNATAR</div>
+    <div class="foot-row">
+      <span>© <span id="y"></span> Annatar</span>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="mailto:annatar.ai@proton.me">Email</a>
+        <a href="https://www.linkedin.com/in/thirdechelon" rel="noopener noreferrer">LinkedIn</a>
+        <details class="privacy">
+          <summary>Privacy</summary>
+          <p>This site sets no cookies and runs no trackers. Messages sent through the contact form are relayed by a third-party form service so I can receive them; please leave out anything sensitive, or email me directly.</p>
+        </details>
+      </nav>
     </div>
   </footer>
 
-  <script>
-    function toggleMenu(btn){
-      const nav = document.getElementById('site-nav');
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', String(open));
-    }
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Reveal on scroll
-    const els = document.querySelectorAll('[data-animate]');
-    const io = new IntersectionObserver((entries)=>{
-      for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('reveal'); io.unobserve(e.target);} }
-    }, {rootMargin: '0px 0px -10% 0px', threshold: 0.1});
-    els.forEach(el=>io.observe(el));
-
-    // Parallax (opt-in via body.feat-parallax)
-    if (document.body.classList.contains('feat-parallax') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const hero = document.querySelector('.hero .glass');
-      if (hero) {
-        const onMove = (e)=>{
-          const r = hero.getBoundingClientRect();
-          const x = (e.clientX - r.left) / r.width - 0.5;
-          const y = (e.clientY - r.top) / r.height - 0.5;
-          hero.style.transform = `perspective(900px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateZ(0)`;
-        };
-        const reset = ()=>{ hero.style.transform = ''; };
-        hero.addEventListener('mousemove', onMove);
-        hero.addEventListener('mouseleave', reset);
-      }
-    }
-
-    // Floating labels (opt-in via body.feat-floatlabels)
-    if (document.body.classList.contains('feat-floatlabels')){
-      const fields = document.querySelectorAll('#contact-form input, #contact-form textarea');
-      fields.forEach(el=>{
-        const lab = el.closest('label');
-        if(!lab) return;
-        const set = ()=>{ (document.activeElement===el || el.value.trim()!=='') ? lab.classList.add('active') : lab.classList.remove('active'); };
-        el.addEventListener('focus', set);
-        el.addEventListener('blur', set);
-        el.addEventListener('input', set);
-        set();
-      });
-    }
-
-    const form = document.getElementById('contact-form');
-    if (form) {
-      form.addEventListener('submit', async function(e){
-        e.preventDefault();
-        const status = document.getElementById('form-status');
-        if (status) { status.style.display = 'block'; status.textContent = 'Sending…'; }
-        const fd = new FormData(form);
-        const payload = Object.fromEntries(fd.entries());
-        const endpoint = form.getAttribute('data-endpoint') || '';
-        const usingFormspree = endpoint && !endpoint.includes('REPLACE_ME');
-        try {
-          if (usingFormspree) {
-            const res = await fetch(endpoint, { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd });
-            if (res.ok) {
-              if (status) { status.textContent = 'Thanks — your message has been sent.'; }
-              form.reset();
-              return;
-            }
-            const err = await res.json().catch(() => ({}));
-            throw new Error(err?.errors?.[0]?.message || 'Submission failed');
-          } else {
-            // Fallback: opens email client with prefilled content
-            const name = (payload.name || '').toString().trim();
-            const email = (payload.email || '').toString().trim();
-            const message = (payload.message || '').toString().trim();
-            const subject = encodeURIComponent(`Inquiry from ${name || 'Annatar site'}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-            window.location.href = `mailto:annatar.ai@proton.me?subject=${subject}&body=${body}`;
-            if (status) { status.textContent = 'Opening your email app…'; }
-          }
-        } catch (err) {
-          if (status) { status.textContent = 'Sorry, there was a problem. Please email annatar.ai@proton.me directly.'; }
-        }
-      });
-    }
-  </script>
-
-  <!--
-    How to customize:
-    1) Replace the email in the footer and contact form.
-    2) Update the Services and About copy as you evolve.
-    3) If you do not want a third-party form endpoint, remove the <form> and use the mailto link.
-    4) For a custom domain with GitHub Pages: add a CNAME file containing your domain.
-  -->
-
-  <!-- Math "matrix" animation: left exactly as-is per your request -->
-  <script id="equations-rain" defer>
-  (function(){
-    if(window.__annatarRainInit) return; window.__annatarRainInit = true;
-    const canvas = document.getElementById('bg-matrix');
-    if(!canvas) return;
-    const ctx = canvas.getContext('2d', { alpha: true });
-    let width=0, height=0, columns=0, drops=[];
-    const columnWidth = 120; // density control
-    const tokens = ['E=mc^2','∇·E=ρ/ε₀','a²+b²=c²','F=ma','V=IR','iħ∂ψ/∂t=Hψ','σ=F/A','λ','π','Δt','∫f(x)dx','∂²u/∂t²=c²∇²u','≈','≤','≥','∀','∃','∑','∏','∇','√x','log n','sinθ','cosθ'];
-
-    function resize(){
-      const dpr = Math.min(window.devicePixelRatio||1,2);
-      const vw = window.innerWidth, vh = window.innerHeight;
-      canvas.width = Math.max(1, Math.floor(vw*dpr));
-      canvas.height = Math.max(1, Math.floor(vh*dpr));
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      width = vw; height = vh;
-      columns = Math.max(1, Math.ceil(width/columnWidth));
-      drops = new Array(columns).fill(0).map(() => {
-        const y = Math.random() * height;
-        return {
-          y,
-          speed: 60 + Math.random() * 100,
-          token: tokens[(Math.random() * tokens.length) | 0],
-          switchEvery: 18,
-          nextSwitchY: y + 18
-        };
-      });
-      ctx.font = '16px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
-      ctx.textBaseline = 'top';
-    }
-
-    let last = performance.now();
-    const targetFPS = 15; // throttled for calmer motion
-    const frameMs = 1000 / targetFPS;
-    let carry = 0;
-
-    function loop(now){
-      const elapsed = now - last; last = now; carry += elapsed;
-      if (carry < frameMs) { requestAnimationFrame(loop); return; }
-      const dt = Math.min(0.05, carry / 1000); carry = 0;
-
-      ctx.clearRect(0, 0, width, height);
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.shadowColor = 'rgba(0,0,0,0)';
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = 'rgba(255,255,255,0.9)';
-
-      for (let i = 0; i < columns; i++) {
-        const drop = drops[i];
-        const x = i * columnWidth + 10;
-        ctx.fillText(drop.token, x, drop.y);
-        drop.y += drop.speed * dt;
-        if (drop.y >= drop.nextSwitchY) {
-          drop.token = tokens[(Math.random() * tokens.length) | 0];
-          drop.nextSwitchY += drop.switchEvery;
-        }
-        if (drop.y > height + 24) {
-          drop.y = -24;
-          drop.speed = 60 + Math.random() * 100;
-          drop.token = tokens[(Math.random() * tokens.length) | 0];
-          drop.nextSwitchY = drop.y + drop.switchEvery;
-        }
-      }
-      requestAnimationFrame(loop);
-    }
-
-    resize();
-    window.addEventListener('resize', resize, { passive: true });
-    requestAnimationFrame(loop);
-  })();
-  </script>
+  <script src="js/site.js" defer></script>
+  <script type="module" src="js/hero.js"></script>
 </body>
 </html>
