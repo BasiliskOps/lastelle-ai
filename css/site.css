@@ -189,9 +189,20 @@ p, li { text-wrap: pretty; }
 .rail { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-600); }
 @media (min-width: 1024px) { .rail { grid-template-columns: repeat(3, 1fr); gap: var(--s-500); } }
 .rail li { position: relative; padding-top: var(--s-500); box-shadow: inset 0 1px 0 var(--rule); }
-.node { position: absolute; top: -4px; left: 0; width: 8px; height: 8px; border-radius: 9999px; background: var(--paper-hi); box-shadow: 0 0 0 1px var(--ink-3); }
-.rail li:first-child .node { background: var(--amber); box-shadow: 0 0 0 1px #7A3E0C, 0 0 0 4px rgba(197,116,32,.14); }
-.step-no { display: block; margin-bottom: var(--s-200); font: 400 12px/16px var(--mono); color: var(--ink-3); }
+.step { display: flex; align-items: center; gap: var(--s-100); margin-bottom: var(--s-200); }
+.atom { width: 40px; height: 40px; flex: none; overflow: visible; }
+.atom-bg { fill: none; }
+.atom .shell { fill: none; stroke: var(--ink-3); stroke-width: 0.75; opacity: .7; }
+.atom .e { fill: var(--ink); }
+.atom .nucleus { fill: var(--amber); }
+.atom .orbit { transform-origin: 28px 28px; transform-box: view-box; animation: orbit 24s linear infinite; }
+.atom .o1 { animation-duration: 36s; animation-direction: reverse; }
+.atom .o2 { animation-duration: 52s; }
+.atom .o3 { animation-duration: 70s; animation-direction: reverse; }
+@keyframes orbit { to { transform: rotate(360deg); } }
+
+
+.step-no { display: block; font: 400 12px/16px var(--mono); color: var(--ink-3); }
 .rail h3 { margin: 0 0 var(--s-75); font-weight: 600; font-size: 20px; line-height: 28px; letter-spacing: -0.02em; }
 .rail p { margin: 0; color: var(--ink-2); max-width: 40ch; }
 
@@ -201,7 +212,22 @@ p, li { text-wrap: pretty; }
 .about-grid .statement { margin-top: var(--s-300); }
 .about-copy p { margin: 0 0 var(--s-200); font-size: 18px; line-height: 28px; color: var(--ink-2); max-width: 46ch; }
 .about-copy p:first-child { color: var(--ink); }
-.about-links { display: flex; gap: var(--s-300); margin-top: var(--s-300); }
+.about-links { display: flex; flex-wrap: wrap; gap: var(--s-100); margin-top: var(--s-400); }
+.social {
+  display: inline-flex; align-items: center; gap: var(--s-75);
+  padding: var(--s-75) var(--s-200) var(--s-75) var(--s-100); border-radius: 9999px;
+  font: 600 14px/20px var(--sans); color: var(--ink);
+  background: var(--paper-hi);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 0 0 1px rgba(80,60,35,.12), 0 8px 16px -12px rgba(60,40,20,.5);
+  transition: transform 700ms var(--ease), box-shadow 700ms var(--ease), background-color 700ms var(--ease);
+}
+.social svg { width: 20px; height: 20px; fill: currentColor; }
+.social:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 0 0 1px rgba(80,60,35,.18), 0 16px 24px -16px rgba(60,40,20,.55); }
+.social:active { transform: scale(0.98); }
+.social-icon { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 9999px; color: var(--ink-2); box-shadow: 0 0 0 1px var(--rule); transition: color 700ms var(--ease), box-shadow 700ms var(--ease), transform 700ms var(--ease); }
+.social-icon svg { width: 16px; height: 16px; fill: currentColor; }
+.social-icon:hover { color: var(--ink); box-shadow: 0 0 0 1px rgba(22,18,13,.35); transform: translateY(-2px); }
+.social-icon:active { transform: scale(0.98); }
 
 /* ---------- faq ---------- */
 .faq { max-width: 880px; margin-left: auto; }
@@ -261,8 +287,8 @@ p, li { text-wrap: pretty; }
 }
 @media (min-width: 768px) { .foot-word { font-size: 96px; } }
 @media (min-width: 1280px) { .foot-word { font-size: 128px; } }
-.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-300); padding-top: var(--s-300); box-shadow: inset 0 1px 0 var(--rule); font-size: 14px; line-height: 20px; color: var(--ink-2); }
-.foot-links { display: flex; gap: var(--s-300); flex-wrap: wrap; position: relative; }
+.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-300); padding-top: var(--s-300); box-shadow: inset 0 1px 0 var(--rule); font-size: 14px; line-height: 20px; color: var(--ink-2); }
+.foot-links { display: flex; align-items: center; gap: var(--s-200); flex-wrap: wrap; position: relative; }
 .foot-links a, .privacy summary { transition: color 700ms var(--ease); }
 .foot-links a:hover, .privacy summary:hover { color: var(--ink); }
 .privacy summary { cursor: pointer; list-style: none; }
