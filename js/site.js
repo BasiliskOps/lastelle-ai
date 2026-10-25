@@ -1,84 +1,82 @@
 (function () {
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('y').textContent = new Date().getFullYear();
 
   // entrance
-  requestAnimationFrame(function () { setTimeout(function () { document.body.classList.add('loaded'); }, 120); });
+  requestAnimationFrame(function () { setTimeout(function () { document.body.classList.add('loaded'); }, 80); });
   var canvasHost = document.getElementById('hero-canvas');
   var waitReady = setInterval(function () {
     if (window.__heroReady) { canvasHost.classList.add('ready'); clearInterval(waitReady); }
   }, 60);
 
-  // nav state + hero recede on scroll
-  var nav = document.getElementById('nav');
-  var card = document.getElementById('hero-card');
-  var ticking = false;
-  function onScroll() {
-    var y = window.scrollY;
-    nav.classList.toggle('scrolled', y > 8);
-    if (!reduced && card) {
-      var h = card.offsetHeight;
-      var p = Math.min(1, Math.max(0, y / h));
-      card.style.transform = 'scale(' + (1 - p * 0.035).toFixed(4) + ')';
-    }
-    ticking = false;
+  // island menu
+  var burger = document.getElementById('burger');
+  var overlay = document.getElementById('overlay');
+  function setMenu(open) {
+    overlay.classList.toggle('open', open);
+    overlay.setAttribute('aria-hidden', String(!open));
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
   }
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  onScroll();
+  burger.addEventListener('click', function () { setMenu(!overlay.classList.contains('open')); });
+  overlay.addEventListener('click', function (e) { if (e.target.closest('a') || e.target === overlay) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
-  // mobile menu
-  var menu = document.getElementById('menu');
-  var links = document.getElementById('nav-links');
-  menu.addEventListener('click', function () {
-    var open = links.classList.toggle('open');
-    menu.setAttribute('aria-expanded', String(open));
-  });
-  links.addEventListener('click', function (e) {
-    if (e.target.closest('a')) { links.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }
-  });
-
-  // reveal
+  // scroll reveals
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
   document.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
 
-  // plates: light follows the pointer, slight tilt
-  if (!reduced && window.matchMedia('(hover: hover)').matches) {
-    document.querySelectorAll('[data-tilt]').forEach(function (el) {
-      el.addEventListener('pointermove', function (e) {
-        var r = el.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        el.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
-        el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
-        el.style.transform = 'translateY(-4px) rotateX(' + ((0.5 - y) * 3).toFixed(2) + 'deg) rotateY(' + ((x - 0.5) * 3).toFixed(2) + 'deg)';
-      });
-      el.addEventListener('pointerleave', function () { el.style.transform = ''; el.style.setProperty('--my', '0%'); el.style.setProperty('--mx', '50%'); });
+  // current section in the nav
+  var spyLinks = Array.prototype.slice.call(document.querySelectorAll('[data-spy]'));
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      spyLinks.forEach(function (a) { a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + e.target.id)); });
     });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['practice', 'method', 'about', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+
+  // tagline: each word lights up as it crosses a line two thirds down the screen
+  var tag = document.getElementById('tagline');
+  if (tag) {
+    var words = tag.textContent.trim().split(/\s+/);
+    tag.innerHTML = words.map(function (w) { return '<span class="w">' + w + '</span>'; }).join(' ');
+    var wio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('on', e.isIntersecting || e.boundingClientRect.top < 0); });
+    }, { rootMargin: '0px 0px -34% 0px', threshold: 1 });
+    tag.querySelectorAll('.w').forEach(function (w) { wio.observe(w); });
   }
 
-  // contact form: Formspree when configured, otherwise a prefilled email
+  // contact form with inline validation
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
+  var rules = [
+    ['f-name', 'e-name', function (v) { return v ? '' : 'Enter your name.'; }],
+    ['f-email', 'e-email', function (v) { return !v ? 'Enter your email address.' : (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'That email address is missing something. Check it and try again.'); }],
+    ['f-msg', 'e-msg', function (v) { return v ? '' : 'Describe the project in a sentence or two.'; }],
+  ];
+  function check(rule) {
+    var el = document.getElementById(rule[0]), msg = rule[2](el.value.trim());
+    document.getElementById(rule[1]).textContent = msg;
+    el.closest('.field').classList.toggle('invalid', !!msg);
+    el.setAttribute('aria-invalid', String(!!msg));
+    return !msg;
+  }
+  rules.forEach(function (r) { document.getElementById(r[0]).addEventListener('blur', function () { check(r); }); });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    var ok = rules.map(check).every(Boolean);
+    if (!ok) { status.textContent = ''; return; }
     var endpoint = form.getAttribute('data-endpoint') || '';
     var fd = new FormData(form);
     if (endpoint && endpoint.indexOf('REPLACE_ME') === -1) {
       status.textContent = 'Sending';
       fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: fd })
-        .then(function (res) {
-          if (!res.ok) throw new Error();
-          status.textContent = 'Received. Expect a reply within two business days.';
-          form.reset();
-        })
+        .then(function (res) { if (!res.ok) throw new Error(); status.textContent = 'Received. Expect a reply within two business days.'; form.reset(); })
         .catch(function () { status.textContent = 'That did not go through. Email annatar.ai@proton.me directly.'; });
     } else {
-      var name = String(fd.get('name') || '').trim();
-      var subject = encodeURIComponent('Project inquiry' + (name ? ' from ' + name : ''));
-      var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + fd.get('email') + '\n\n' + fd.get('message'));
-      window.location.href = 'mailto:annatar.ai@proton.me?subject=' + subject + '&body=' + body;
-      status.textContent = 'Opening your email app';
+      status.textContent = 'The form is not connected yet. Email annatar.ai@proton.me directly.';
     }
   });
 })();

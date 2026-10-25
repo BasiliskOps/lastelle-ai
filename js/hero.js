@@ -24,7 +24,7 @@ async function start(host) {
   } catch (e) { host.classList.add('no-webgl'); return; }
   const DPR = Math.min(window.devicePixelRatio || 1, mobile ? 1.6 : 1.75);
   renderer.setPixelRatio(DPR);
-  renderer.setClearColor(0x070403, 1);
+  renderer.setClearColor(0x131209, 1);
   host.appendChild(renderer.domElement);
 
   // ---------- data ----------
@@ -46,7 +46,7 @@ async function start(host) {
     ink[i] = ink8[i] / 255;
     rnd[i * 4] = rng(); rnd[i * 4 + 1] = rng(); rnd[i * 4 + 2] = rng(); rnd[i * 4 + 3] = rng();
   }
-  const forms = [man, helix(N, rng), atom(N, rng), lattice(N, rng), dyson(N, rng), galaxy(N, rng)];
+  const forms = [man, helix(N, rng), await monolith(N, rng), lattice(N, rng), dyson(N, rng), galaxy(N, rng)];
 
   const geo = new THREE.BufferGeometry();
   forms.forEach((f, i) => geo.setAttribute(i === 0 ? 'position' : 'p' + i, new THREE.BufferAttribute(f, 3)));
@@ -96,7 +96,7 @@ async function start(host) {
   const bp = (params.get('b') || '0.38,0.35,0.55').split(',').map(Number);
   const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), bp[0], bp[1], bp[2]);
   composer.addPass(bloom);
-  const finish = new ShaderPass({ uniforms: { tDiffuse: { value: null }, uTime: { value: 0 }, uRes: { value: new THREE.Vector2() } }, vertexShader: FIN_VERT, fragmentShader: FIN_FRAG });
+  const finish = new ShaderPass({ uniforms: { tDiffuse: { value: null }, uTime: { value: 0 }, uRes: { value: new THREE.Vector2() }, uWide: { value: 1 } }, vertexShader: FIN_VERT, fragmentShader: FIN_FRAG });
   composer.addPass(finish);
 
   // ---------- layout ----------
@@ -108,9 +108,11 @@ async function start(host) {
     renderer.setSize(W, H, false);
     composer.setSize(W, H);
     camera.aspect = W / H;
-    const wide = W / H > 1.15;
+    const stacked = getComputedStyle(host).position === 'relative';
+    const wide = !stacked && W / H > 1.15;
+    finish.uniforms.uWide.value = wide ? 1 : 0;
     // figure diameter as a share of the frame height
-    const share = wide ? 0.80 : Math.min(0.78, (W / H) * 0.86);
+    const share = wide ? (W / H < 1.55 ? 0.62 : 0.80) : Math.min(0.84, (W / H) * 0.9);
     const dist = 2 / (share * 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
     camBase.set(0, 0, dist);
     camera.position.copy(camBase);
@@ -118,8 +120,8 @@ async function start(host) {
     uniforms.uFocusDist.value = dist;
     // shift the figure right on wide frames so copy can sit left
     const halfW = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist * camera.aspect;
-    focusX = wide ? halfW * 0.34 : 0;
-    const focusY = wide ? 0 : Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist * 0.30;
+    focusX = wide ? halfW * (W / H < 1.55 ? 0.54 : 0.34) : 0;
+    const focusY = 0;
     rig.position.set(focusX, focusY, 0);
     look.set(0, 0, 0);
     uniforms.uProj.value = (H * DPR) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
@@ -250,6 +252,65 @@ function atom(N, r) {
   return o;
 }
 
+
+// A stele in the manner of the Rosetta Stone: the Anglo-Saxon futhorc above,
+// a Latin inscription below, cut into the face of a stone slab.
+async function monolith(N, r) {
+  const W = 0.86, H = 2.05, D = 0.24;
+  try {
+    const runic = new FontFace('Futhorc', 'url(assets/fonts/noto-sans-runic-runic-400-normal.woff2)');
+    const roman = new FontFace('Lapidary', 'url(assets/fonts/cinzel-latin-600-normal.woff2)');
+    await Promise.all([runic.load(), roman.load()]);
+    document.fonts.add(runic); document.fonts.add(roman);
+  } catch (e) {}
+  const cw = 420, ch = Math.round(cw * H / W);
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+  const g = cv.getContext('2d');
+  g.fillStyle = '#fff'; g.strokeStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  // inset border and register rules, as on a carved stele
+  g.lineWidth = 3; g.strokeRect(18, 18, cw - 36, ch - 36);
+  g.lineWidth = 2; g.beginPath(); g.moveTo(40, ch * 0.555); g.lineTo(cw - 40, ch * 0.555); g.stroke();
+  // the futhorc row in rune order
+  const rows = ['ᚠᚢᚦᚩᚱᚳᚷ', 'ᚹᚻᚾᛁᛄᛇᛈ', 'ᛉᛋᛏᛒᛖᛗᛚ', 'ᛝᛟᛞᚪᚫᚣᛡᛠ'];
+  g.font = '62px Futhorc';
+  rows.forEach((row, k) => g.fillText(row, cw / 2, 120 + k * 112, cw - 70));
+  // the Latin register
+  const latin = ['PER ASPERA', 'AD ASTRA', 'FABER EST', 'SVAE QVISQVE', 'FORTVNAE'];
+  latin.forEach((line, k) => {
+    g.font = (k < 2 ? '44px' : '30px') + ' Lapidary';
+    const y = ch * 0.555 + 70 + k * (k < 2 ? 62 : 52) + (k >= 2 ? 34 : 0);
+    g.fillText(line, cw / 2, y, cw - 70);
+  });
+  const d = g.getImageData(0, 0, cw, ch).data, ink = [];
+  for (let y = 0; y < ch; y += 1) for (let x = 0; x < cw; x += 1) if (d[(y * cw + x) * 4 + 3] > 120) ink.push(x, y);
+  const o = new Float32Array(N * 3), inkN = ink.length / 2;
+  for (let i = 0; i < N; i++) {
+    const k = r();
+    let x, y, z;
+    if (k < 0.58 && inkN) {
+      // carved characters, set slightly into the face
+      const j = Math.floor(r() * inkN);
+      x = ((ink[j * 2] + r()) / cw - 0.5) * W; y = (0.5 - (ink[j * 2 + 1] + r()) / ch) * H;
+      z = D / 2 - r() * 0.03;
+    } else if (k < 0.80) {
+      // the slab's twelve edges, crisp
+      const e = Math.floor(r() * 12), t = r() - 0.5, sx = (e & 1) ? 1 : -1, sy = (e & 2) ? 1 : -1;
+      if (e < 4) { x = t * W; y = sy * H / 2; z = sx * D / 2; }
+      else if (e < 8) { x = sx * W / 2; y = t * H; z = sy * D / 2; }
+      else { x = sx * W / 2; y = sy * H / 2; z = t * D; }
+      x += gauss(r) * 0.004; y += gauss(r) * 0.004; z += gauss(r) * 0.004;
+    } else {
+      // a sparse grain over the stone's faces, so it reads as a solid body
+      const f = Math.floor(r() * 6), u = r() - 0.5, v = r() - 0.5;
+      if (f < 2) { x = u * W; y = v * H; z = (f ? 1 : -1) * D / 2; }
+      else if (f < 4) { x = (f === 3 ? 1 : -1) * W / 2; y = v * H; z = u * D; }
+      else { x = u * W; y = (f === 5 ? 1 : -1) * H / 2; z = v * D; }
+    }
+    o[i * 3] = x; o[i * 3 + 1] = y; o[i * 3 + 2] = z;
+  }
+  return o;
+}
+
 function lattice(N, r) {
   const layers = [6, 10, 10, 10, 6], nodes = [];
   layers.forEach((n, li) => {
@@ -337,7 +398,7 @@ vec3 form(int i){
   if(i==0) return p + vec3(0.0,0.0,sin(uTime*0.6+aR.w*6.28)*0.004);
   float spin = uTime*0.28 + float(i)*1.3;
   if(i==1) return rotX(0.18) * rotY(spin) * p;
-  if(i==2) return rotX(0.25) * rotY(spin*0.9) * p;
+  if(i==2) return rotX(0.06) * rotY(0.32 + sin(uTime*0.32)*0.42) * p;
   if(i==3) return rotX(0.12) * rotY(sin(uTime*0.35)*0.55) * p;
   if(i==4) return rotX(0.38) * rotY(spin*0.7) * p;
   return rotX(1.05) * rotY(spin*0.6) * p * 1.05;
@@ -397,9 +458,9 @@ void main(){
   float near = clamp(-dz, 0.0, 2.0), far = clamp(dz, 0.0, 2.0);
   float formW = 1.0 - manW;                 // the 3D forms read heavier than the drawing
   gl_PointSize = max(1.0, uSize * uProj * (0.7 + ink*0.7) * (1.0 + glow*0.5) * size * (1.0 + formW*0.5) * (1.0 + near*0.9) * (1.0 - far*0.22) / -mv.z);
-  vec3 amber = vec3(0.92, 0.46, 0.13);
-  vec3 honey = vec3(1.0, 0.74, 0.40);
-  vec3 bone  = vec3(1.0, 0.93, 0.80);
+  vec3 amber = vec3(0.22, 0.62, 0.78);
+  vec3 honey = vec3(0.55, 0.88, 0.98);
+  vec3 bone  = vec3(0.90, 0.98, 1.0);
   vec3 c = mix(amber, honey, smoothstep(0.2, 0.9, ink + aR.y*0.25));
   c = mix(c, bone, clamp(glow*0.55 + step(0.985, aR.w)*0.6, 0.0, 1.0));
   vCol = c;
@@ -485,7 +546,7 @@ void main(){
 
 const FIN_VERT = /* glsl */`varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }`;
 const FIN_FRAG = /* glsl */`
-uniform sampler2D tDiffuse; uniform float uTime; uniform vec2 uRes; varying vec2 vUv;
+uniform sampler2D tDiffuse; uniform float uTime, uWide; uniform vec2 uRes; varying vec2 vUv;
 float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233)))*43758.5453); }
 void main(){
   vec2 d = (vUv - 0.5);
@@ -498,5 +559,10 @@ void main(){
   c = pow(c, vec3(0.98, 1.0, 1.06));
   float g = h(vUv*uRes + fract(uTime*7.31)*vec2(91.7, 37.3)) - 0.5;
   c += g * 0.035;
+  // darken behind the headline so the copy stays legible over the scene
+  float scrim = uWide > 0.5
+    ? (1.0 - smoothstep(0.0, 0.52, vUv.x)) * 0.62 + (1.0 - smoothstep(0.0, 0.3, vUv.y)) * 0.4
+    : 1.0 - smoothstep(0.0, 0.24, vUv.y);
+  c = uWide > 0.5 ? c * (1.0 - clamp(scrim, 0.0, 0.9)) : mix(c, vec3(0.0745, 0.0706, 0.0353), clamp(scrim, 0.0, 1.0));
   gl_FragColor = vec4(c, 1.0);
 }`;
