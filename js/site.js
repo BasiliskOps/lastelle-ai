@@ -69,7 +69,7 @@
       fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: fd })
         .then(function (res) {
           if (!res.ok) throw new Error();
-          status.textContent = 'Received. I will reply within two business days.';
+          status.textContent = 'Received. Expect a reply within two business days.';
           form.reset();
         })
         .catch(function () { status.textContent = 'That did not go through. Email annatar.ai@proton.me directly.'; });
