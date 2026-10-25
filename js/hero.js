@@ -56,7 +56,7 @@ async function start(host) {
 
   const uniforms = {
     uTime: { value: 0 }, uA: { value: 0 }, uB: { value: 0 }, uP: { value: 0 }, uMode: { value: 0 },
-    uSize: { value: parseFloat(params.get('s') || '0.0034') }, uAlpha: { value: parseFloat(params.get('a') || '0.35') }, uProj: { value: 800 }, uDpr: { value: DPR },
+    uSize: { value: parseFloat(params.get('s') || '0.0034') }, uAlpha: { value: parseFloat(params.get('a') || '0.35') }, uProj: { value: 800 }, uDpr: { value: DPR }, uFocusDist: { value: 4 },
   };
   const mat = new THREE.ShaderMaterial({
     uniforms, vertexShader: VERT, fragmentShader: FRAG,
@@ -76,6 +76,21 @@ async function start(host) {
   rig.add(points);
   scene.add(rig);
 
+  // drifting motes at many depths, so the scene reads as a volume
+  const DUST = mobile ? 900 : 2200;
+  const dPos = new Float32Array(DUST * 3), dR = new Float32Array(DUST * 2);
+  for (let i = 0; i < DUST; i++) {
+    dPos[i * 3] = (rng() - 0.5) * 9; dPos[i * 3 + 1] = (rng() - 0.5) * 5.5; dPos[i * 3 + 2] = -7 + rng() * 9.2;
+    dR[i * 2] = rng(); dR[i * 2 + 1] = rng();
+  }
+  const dGeo = new THREE.BufferGeometry();
+  dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
+  dGeo.setAttribute('aR', new THREE.BufferAttribute(dR, 2));
+  const dustUni = { uTime: uniforms.uTime, uProj: uniforms.uProj, uFocusDist: uniforms.uFocusDist };
+  const dust = new THREE.Points(dGeo, new THREE.ShaderMaterial({ uniforms: dustUni, vertexShader: DUST_VERT, fragmentShader: DUST_FRAG, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending }));
+  dust.frustumCulled = false;
+  scene.add(dust);
+
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
   const bp = (params.get('b') || '0.38,0.35,0.55').split(',').map(Number);
@@ -86,6 +101,7 @@ async function start(host) {
 
   // ---------- layout ----------
   let W = 1, H = 1, focusX = 0;
+  const camBase = new THREE.Vector3(), look = new THREE.Vector3();
   function layout() {
     const r = host.getBoundingClientRect();
     W = Math.max(1, r.width); H = Math.max(1, r.height);
@@ -96,13 +112,16 @@ async function start(host) {
     // figure diameter as a share of the frame height
     const share = wide ? 0.80 : Math.min(0.78, (W / H) * 0.86);
     const dist = 2 / (share * 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
-    camera.position.set(0, 0, dist);
+    camBase.set(0, 0, dist);
+    camera.position.copy(camBase);
     camera.updateProjectionMatrix();
+    uniforms.uFocusDist.value = dist;
     // shift the figure right on wide frames so copy can sit left
     const halfW = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist * camera.aspect;
     focusX = wide ? halfW * 0.34 : 0;
     const focusY = wide ? 0 : Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist * 0.30;
     rig.position.set(focusX, focusY, 0);
+    look.set(0, 0, 0);
     uniforms.uProj.value = (H * DPR) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
     bgUni.uRes.value.set(W * DPR, H * DPR);
     finish.uniforms.uRes.value.set(W * DPR, H * DPR);
@@ -116,7 +135,7 @@ async function start(host) {
   // ---------- timeline ----------
   // modes: 0 hold, 1 swirl transition, 2 collapse into navel and redraw
   const T = [
-    { m: 0, a: 0, d: 4.2 },
+    { m: 0, a: 0, d: 1.5 },
     { m: 1, a: 0, b: 1, d: 3.4 },
     { m: 0, a: 1, d: 2.2 },
     { m: 1, a: 1, b: 2, d: 1.9 },
@@ -164,8 +183,11 @@ async function start(host) {
     if (frozen === null) { if (!reduced) t += dt; }
     else t = (window.__heroT != null) ? window.__heroT : frozen;
     ptr.x += (ptr.tx - ptr.x) * 0.04; ptr.y += (ptr.ty - ptr.y) * 0.04;
-    rig.rotation.y = ptr.x * 0.16;
-    rig.rotation.x = ptr.y * 0.10;
+    rig.rotation.y = ptr.x * 0.10;
+    rig.rotation.x = ptr.y * 0.06;
+    // slow camera drift plus pointer, giving parallax between the figure and the motes
+    camera.position.set(camBase.x + ptr.x * 0.55 + Math.sin(t * 0.13) * 0.18, camBase.y - ptr.y * 0.35 + Math.sin(t * 0.09) * 0.08, camBase.z);
+    camera.lookAt(look);
     setTimeline(t);
     uniforms.uTime.value = t; bgUni.uTime.value = t; finish.uniforms.uTime.value = t;
     composer.render();
@@ -192,7 +214,7 @@ function helix(N, r) {
     let x, y, z;
     if (k < 0.62) {
       const t = r(), s = r() < 0.5 ? 0 : Math.PI, a = t * turns * 6.2831853 + s;
-      const th = 0.022;
+      const th = 0.04;
       x = Math.cos(a) * R + gauss(r) * th; z = Math.sin(a) * R + gauss(r) * th; y = (t - 0.5) * len + gauss(r) * th;
     } else {
       const n = Math.floor(r() * rungs), t = (n + 0.5) / rungs, a = t * turns * 6.2831853, f = r() * 2 - 1;
@@ -206,17 +228,17 @@ function helix(N, r) {
 
 function atom(N, r) {
   const o = new Float32Array(N * 3), balls = [];
-  for (let b = 0; b < 14; b++) { const p = [0, 0, 0]; sphere(r, 0.09 * Math.cbrt(r()), p, 0); balls.push(p); }
+  for (let b = 0; b < 16; b++) { const p = [0, 0, 0]; sphere(r, 0.11 * Math.cbrt(r()), p, 0); balls.push(p); }
   const orbits = [[0, 0], [1.05, 0.5], [-1.05, -0.5]];
   for (let i = 0; i < N; i++) {
     const k = r(); let x, y, z;
     if (k < 0.2) {
-      const b = balls[Math.floor(r() * balls.length)], p = [0, 0, 0]; sphere(r, 0.055 * Math.sqrt(r()), p, 0);
+      const b = balls[Math.floor(r() * balls.length)], p = [0, 0, 0]; sphere(r, 0.07 * Math.sqrt(r()), p, 0);
       x = b[0] + p[0]; y = b[1] + p[1]; z = b[2] + p[2];
     } else {
       const [tilt, yaw] = orbits[Math.floor(r() * 3)];
-      let a = r() * 6.2831853, rr = 0.98, th = 0.007;
-      if (k > 0.9) { a = Math.floor(r() * 2) * Math.PI + Math.floor(k * 30) * 0.21; const p = [0, 0, 0]; sphere(r, 0.035 * Math.cbrt(r()), p, 0); x = Math.cos(a) * rr * 1.0 + p[0]; y = Math.sin(a) * rr * 0.34 + p[1]; z = p[2]; }
+      let a = r() * 6.2831853, rr = 0.98, th = 0.026;
+      if (k > 0.9) { a = Math.floor(r() * 2) * Math.PI + Math.floor(k * 30) * 0.21; const p = [0, 0, 0]; sphere(r, 0.06 * Math.cbrt(r()), p, 0); x = Math.cos(a) * rr * 1.0 + p[0]; y = Math.sin(a) * rr * 0.34 + p[1]; z = p[2]; }
       else { x = Math.cos(a) * rr + gauss(r) * th; y = Math.sin(a) * rr * 0.34 + gauss(r) * th; z = gauss(r) * th; }
       const c = Math.cos(tilt), s = Math.sin(tilt);
       const x2 = x * c - y * s, y2 = x * s + y * c;
@@ -240,12 +262,12 @@ function lattice(N, r) {
   for (let i = 0; i < N; i++) {
     let x, y, z;
     if (r() < 0.36) {
-      const n = nodes[Math.floor(r() * nodes.length)], p = [0, 0, 0]; sphere(r, 0.038 * (0.75 + 0.25 * r()), p, 0);
+      const n = nodes[Math.floor(r() * nodes.length)], p = [0, 0, 0]; sphere(r, 0.055 * (0.7 + 0.3 * r()), p, 0);
       x = n[0] + p[0]; y = n[1] + p[1]; z = n[2] + p[2];
     } else {
       const [a, b] = edges[Math.floor(r() * edges.length)], t = r();
       x = a[0] + (b[0] - a[0]) * t; y = a[1] + (b[1] - a[1]) * t; z = a[2] + (b[2] - a[2]) * t;
-      x += gauss(r) * 0.002; y += gauss(r) * 0.002;
+      x += gauss(r) * 0.011; y += gauss(r) * 0.011; z += gauss(r) * 0.011;
     }
     o[i * 3] = x; o[i * 3 + 1] = y; o[i * 3 + 2] = z;
   }
@@ -263,7 +285,7 @@ function dyson(N, r) {
       const g = rings[Math.floor(r() * rings.length)];
       const cell = Math.floor(r() * g.n), a0 = cell / g.n * 6.2831853;
       // small square collector panels along the ring
-      const a = a0 + (r() - 0.5) * 0.045, h = (r() - 0.5) * 0.05;
+      const a = a0 + (r() - 0.5) * 0.065, h = (r() - 0.5) * 0.075;
       x = Math.cos(a) * g.R; y = h; z = Math.sin(a) * g.R;
       const c = Math.cos(g.tilt), s = Math.sin(g.tilt);
       const y2 = y * c - z * s, z2 = y * s + z * c;
@@ -284,7 +306,7 @@ function galaxy(N, r) {
     else {
       const arm = r() < 0.5 ? 0 : Math.PI, d = Math.pow(r(), 0.8) * 1.1 + 0.05;
       const a = arm + Math.log(d + 0.05) * 2.6 + gauss(r) * (0.22 / (d + 0.3));
-      x = Math.cos(a) * d + gauss(r) * 0.03; z = Math.sin(a) * d + gauss(r) * 0.03; y = gauss(r) * 0.025 * (1.2 - d);
+      x = Math.cos(a) * d + gauss(r) * 0.04; z = Math.sin(a) * d + gauss(r) * 0.04; y = gauss(r) * 0.04 * (1.2 - d);
     }
     o[i * 3] = x; o[i * 3 + 1] = y; o[i * 3 + 2] = z;
   }
@@ -299,13 +321,13 @@ vec3 flow(vec3 p, float t){
 }`;
 
 const VERT = /* glsl */`
-uniform float uTime, uP, uSize, uProj, uDpr, uAlpha;
+uniform float uTime, uP, uSize, uProj, uDpr, uAlpha, uFocusDist;
 uniform int uA, uB, uMode;
 attribute vec3 p1, p2, p3, p4, p5;
 attribute vec4 aR;
 attribute float aInk;
 varying vec3 vCol;
-varying float vA;
+varying float vA, vSoft;
 ${NOISE}
 mat3 rotY(float a){ float c=cos(a), s=sin(a); return mat3(c,0.,-s, 0.,1.,0., s,0.,c); }
 mat3 rotX(float a){ float c=cos(a), s=sin(a); return mat3(1.,0.,0., 0.,c,s, 0.,-s,c); }
@@ -371,23 +393,52 @@ void main(){
   vec4 mv = modelViewMatrix * vec4(pos, 1.0);
   gl_Position = projectionMatrix * mv;
   float ink = (uMode==0 && uA!=0) ? 0.55 + aR.w*0.35 : aInk;
-  gl_PointSize = max(1.0, uSize * uProj * (0.7 + ink*0.7) * (1.0 + glow*0.5) * size / -mv.z);
+  float dz = -mv.z - uFocusDist;           // + is farther than the figure plane
+  float near = clamp(-dz, 0.0, 2.0), far = clamp(dz, 0.0, 2.0);
+  float formW = 1.0 - manW;                 // the 3D forms read heavier than the drawing
+  gl_PointSize = max(1.0, uSize * uProj * (0.7 + ink*0.7) * (1.0 + glow*0.5) * size * (1.0 + formW*0.5) * (1.0 + near*0.9) * (1.0 - far*0.22) / -mv.z);
   vec3 amber = vec3(0.92, 0.46, 0.13);
   vec3 honey = vec3(1.0, 0.74, 0.40);
   vec3 bone  = vec3(1.0, 0.93, 0.80);
   vec3 c = mix(amber, honey, smoothstep(0.2, 0.9, ink + aR.y*0.25));
   c = mix(c, bone, clamp(glow*0.55 + step(0.985, aR.w)*0.6, 0.0, 1.0));
   vCol = c;
-  vA = uAlpha * (0.22 + ink*0.55) * (1.0 + glow*0.9) * mix(1.0, 1.9, manW);
+  vA = uAlpha * (0.22 + ink*0.55) * (1.0 + glow*0.9) * mix(1.0, 1.9, manW) * (1.0 + formW*0.12) * (1.0 + near*0.35) * (1.0 - far*0.38);
+  vSoft = near;
 }`;
 
 const FRAG = /* glsl */`
-varying vec3 vCol; varying float vA;
+varying vec3 vCol; varying float vA, vSoft;
 void main(){
   vec2 q = gl_PointCoord - 0.5; float d = dot(q,q);
   if(d > 0.25) discard;
-  float a = exp(-d*14.0);
+  float a = exp(-d*mix(14.0, 6.0, clamp(vSoft*0.6, 0.0, 1.0)));
   gl_FragColor = vec4(vCol * a * vA, 1.0);
+}`;
+
+const DUST_VERT = /* glsl */`
+uniform float uTime, uProj, uFocusDist; attribute vec2 aR; varying float vA, vSoft;
+void main(){
+  vec3 p = position;
+  p.y = mod(p.y + uTime*(0.03 + aR.x*0.05) + 2.75, 5.5) - 2.75;
+  p.x += sin(uTime*0.2 + aR.y*6.28)*0.08;
+  vec4 mv = modelViewMatrix * vec4(p, 1.0);
+  gl_Position = projectionMatrix * mv;
+  float dz = -mv.z - uFocusDist;
+  float blur = clamp(abs(dz)*0.55, 0.0, 3.0);
+  gl_PointSize = clamp(uProj * (0.006 + blur*0.012) / -mv.z, 1.0, 64.0);
+  vSoft = clamp(blur/3.0, 0.0, 1.0);
+  vA = (0.10 + aR.x*0.18) * mix(1.0, 0.35, vSoft) * smoothstep(0.2, 1.2, -mv.z) * (0.6 + 0.4*sin(uTime*0.7 + aR.y*40.0));
+}`;
+const DUST_FRAG = /* glsl */`
+varying float vA, vSoft;
+void main(){
+  vec2 q = gl_PointCoord - 0.5; float d = length(q);
+  if(d > 0.5) discard;
+  float core = exp(-d*d*40.0);
+  float disc = smoothstep(0.5, 0.42, d) * (0.55 + 0.45*smoothstep(0.25, 0.48, d));
+  float a = mix(core, disc*0.8, vSoft);
+  gl_FragColor = vec4(vec3(1.0, 0.68, 0.36) * a * vA, 1.0);
 }`;
 
 const BG_VERT = /* glsl */`varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;

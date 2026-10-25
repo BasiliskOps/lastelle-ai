@@ -103,7 +103,7 @@ main, .foot { position: relative; z-index: 1; }
   transform-origin: 50% 0;
   will-change: transform;
 }
-.hero-canvas { position: absolute; inset: 0; opacity: 0; transition: opacity 1.8s var(--ease); }
+.hero-canvas { position: absolute; inset: 0; opacity: 0; transition: opacity .7s var(--ease); }
 .hero-canvas.ready { opacity: 1; }
 .hero-canvas canvas { display: block; width: 100% !important; height: 100% !important; }
 .hero-shade {
@@ -168,7 +168,8 @@ main, .foot { position: relative; z-index: 1; }
 .btn-link { position: relative; font-size: 15px; color: rgba(242, 232, 215, 0.82); padding: 6px 0; }
 .btn-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; opacity: .45; transform-origin: left; transition: transform .5s var(--ease), opacity .3s; }
 .btn-link:hover::after { opacity: 1; transform: scaleX(1.06); }
-.about .btn-link { color: var(--ink); display: inline-block; margin-top: 8px; }
+.about .btn-link { color: var(--ink); display: inline-block; }
+.about-links { display: flex; gap: 28px; margin-top: 8px; }
 
 /* ---------- sections ---------- */
 .section { padding: clamp(96px, 14vw, 190px) calc(var(--gutter) + var(--pad)) 0; }
