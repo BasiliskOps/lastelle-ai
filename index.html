@@ -3,41 +3,251 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Annatar — Products for effective acceleration and AI solutions architecture</title>
-  <meta name="description" content="Products for effective acceleration, and the AI architecture that carries agentic systems into production." />
+  <title>Annatar | AI Solutions Architecture and Agentic Systems</title>
+  <meta name="description" content="One-person AI solutions architecture practice building production systems for language models, agentic AI across Claude, OpenAI, and xAI, and e/acc products." />
+  <meta name="author" content="Damien Rosecraft" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://basiliskops.github.io/annatar-site/" />
   <meta name="theme-color" content="#ECE6D9" />
-  <meta property="og:title" content="Annatar" />
-  <meta property="og:description" content="Products for effective acceleration, and the AI architecture that carries agentic systems into production." />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23131209'/%3E%3Crect x='17' y='17' width='30' height='30' fill='none' stroke='%23E2A15A' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23E2A15A' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='2.6' fill='%23F3E6CF'/%3E%3C/svg%3E" />
+  <meta property="og:site_name" content="Annatar" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://basiliskops.github.io/annatar-site/" />
+  <meta property="og:title" content="Annatar | AI Solutions Architecture and Agentic Systems" />
+  <meta property="og:description" content="Production architecture for language models, agentic AI systems, and products for effective acceleration." />
+  <meta property="og:image" content="https://basiliskops.github.io/annatar-site/assets/brand/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Annatar: Intelligence, engineered for acceleration. Leonardo's Vitruvian Man rendered in light." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@clangnosis" />
+  <meta name="twitter:creator" content="@clangnosis" />
+  <meta name="twitter:title" content="Annatar | AI Solutions Architecture and Agentic Systems" />
+  <meta name="twitter:description" content="Production architecture for language models, agentic AI systems, and products for effective acceleration." />
+  <meta name="twitter:image" content="https://basiliskops.github.io/annatar-site/assets/brand/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Annatar: Intelligence, engineered for acceleration." />
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/brand/favicon-48.png" sizes="48x48" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="alternate" type="text/markdown" title="LLM summary" href="llms.txt" />
+  <link rel="alternate" type="text/markdown" title="Full site text for LLMs" href="llms-full.txt" />
+  <link rel="me" href="https://x.com/clangnosis" />
+  <link rel="me" href="https://www.linkedin.com/in/thirdechelon" />
   <link rel="preload" href="assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/site.css" />
   <script type="importmap">
   { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
   </script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Annatar",
-    "email": "mailto:annatar.ai@proton.me",
-    "sameAs": ["https://www.linkedin.com/in/thirdechelon", "https://x.com/clangnosis"],
-    "founder": { "@type": "Person", "name": "Damien Rosecraft" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "What kind of work does Annatar take on?", "acceptedAnswer": { "@type": "Answer", "text": "Solutions architecture and agentic systems for organizations putting language models into live operations, plus products released under the Annatar name." } },
-      { "@type": "Question", "name": "Who does the work?", "acceptedAnswer": { "@type": "Answer", "text": "Damien Rosecraft, from the first call to production. Annatar is a one person practice." } },
-      { "@type": "Question", "name": "Which models and platforms are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Systems are built across Claude, OpenAI, and xAI, with the model chosen for each job." } },
-      { "@type": "Question", "name": "What do I own at the end of an engagement?", "acceptedAnswer": { "@type": "Answer", "text": "The working software, its documentation, and the evaluation harnesses that measure it." } },
-      { "@type": "Question", "name": "Where do people stay in the loop?", "acceptedAnswer": { "@type": "Answer", "text": "Human checkpoints are placed wherever a decision needs judgment, and agents handle the rest." } },
-      { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Within two business days, with a first read on scope and architecture." } }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://basiliskops.github.io/annatar-site/#organization",
+      "name": "Annatar",
+      "url": "https://basiliskops.github.io/annatar-site/",
+      "description": "One-person AI solutions architecture practice building production systems for language models, agentic AI across Claude, OpenAI, and xAI, and e/acc products.",
+      "email": "annatar.ai@proton.me",
+      "slogan": "Intelligence, engineered for acceleration.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://basiliskops.github.io/annatar-site/assets/brand/logo-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": {
+        "@id": "https://basiliskops.github.io/annatar-site/#primaryimage"
+      },
+      "founder": {
+        "@id": "https://basiliskops.github.io/annatar-site/#founder"
+      },
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "value": 1
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "annatar.ai@proton.me",
+        "availableLanguage": "English"
+      },
+      "knowsAbout": [
+        "AI solutions architecture",
+        "Large language models",
+        "Agentic AI",
+        "Multi-agent orchestration",
+        "Retrieval-augmented generation",
+        "AI evaluation harnesses",
+        "Human-in-the-loop AI",
+        "Effective accelerationism"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Annatar services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "AI solutions architecture",
+              "serviceType": "AI solutions architecture",
+              "provider": {
+                "@id": "https://basiliskops.github.io/annatar-site/#organization"
+              },
+              "description": "Reference architectures for model and vendor selection, retrieval and memory design, orchestration, and evaluation harnesses, fitted to the client's data, stack, and risk posture."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Agentic systems",
+              "serviceType": "Agentic AI development",
+              "provider": {
+                "@id": "https://basiliskops.github.io/annatar-site/#organization"
+              },
+              "description": "Workflows of cooperating AI agents across Claude, OpenAI, and xAI, with orchestration layers, tool and data integration, and human review checkpoints."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Products",
+              "serviceType": "Software products",
+              "provider": {
+                "@id": "https://basiliskops.github.io/annatar-site/#organization"
+              },
+              "description": "Software released under the Annatar name to speed up the industries pushing technology forward."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://basiliskops.github.io/annatar-site/#founder",
+      "name": "Damien Rosecraft",
+      "jobTitle": "AI Solutions Architect",
+      "url": "https://basiliskops.github.io/annatar-site/#about",
+      "worksFor": {
+        "@id": "https://basiliskops.github.io/annatar-site/#organization"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/thirdechelon",
+        "https://x.com/clangnosis"
+      ],
+      "knowsAbout": [
+        "AI solutions architecture",
+        "Agentic AI",
+        "Large language models"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://basiliskops.github.io/annatar-site/#website",
+      "url": "https://basiliskops.github.io/annatar-site/",
+      "name": "Annatar",
+      "description": "One-person AI solutions architecture practice building production systems for language models, agentic AI across Claude, OpenAI, and xAI, and e/acc products.",
+      "publisher": {
+        "@id": "https://basiliskops.github.io/annatar-site/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://basiliskops.github.io/annatar-site/#webpage",
+      "url": "https://basiliskops.github.io/annatar-site/",
+      "name": "Annatar | AI Solutions Architecture and Agentic Systems",
+      "description": "One-person AI solutions architecture practice building production systems for language models, agentic AI across Claude, OpenAI, and xAI, and e/acc products.",
+      "isPartOf": {
+        "@id": "https://basiliskops.github.io/annatar-site/#website"
+      },
+      "about": {
+        "@id": "https://basiliskops.github.io/annatar-site/#organization"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://basiliskops.github.io/annatar-site/#primaryimage"
+      },
+      "inLanguage": "en",
+      "dateModified": "2026-10-26",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".hero-title",
+          ".hero-sub",
+          ".tagline-text"
+        ]
+      }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://basiliskops.github.io/annatar-site/#primaryimage",
+      "url": "https://basiliskops.github.io/annatar-site/assets/brand/og-image.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://basiliskops.github.io/annatar-site/#faq",
+      "isPartOf": {
+        "@id": "https://basiliskops.github.io/annatar-site/#webpage"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What kind of work does Annatar take on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Solutions architecture and agentic systems for organizations putting language models into live operations, plus products released under the Annatar name."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who does the work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Damien Rosecraft, from the first call to production. Annatar is a one person practice, so nothing is handed off to a team you never met."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which models and platforms are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Systems are built across Claude, OpenAI, and xAI, with the model chosen for each job rather than one vendor for everything."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do I own at the end of an engagement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The working software, its documentation, and the evaluation harnesses that measure it. Ownership is clear from the start."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where do people stay in the loop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Human checkpoints are placed wherever a decision needs judgment, and agents handle the rest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How quickly will I hear back?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Within two business days, with a first read on scope and architecture."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>

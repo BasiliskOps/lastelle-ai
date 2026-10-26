@@ -1,65 +1,21 @@
 # Annatar
 
-Rust-powered SaaS for mission‑critical modernization across U.S. **defense**, **utilities**, and **infrastructure**.
+Annatar is a one-person AI solutions architecture practice run by Damien Rosecraft. It designs and builds production architecture for large language models and agentic AI systems, and releases software products built in the spirit of effective acceleration (e/acc).
 
-> We design and deliver reliable, security‑first software that upgrades legacy systems without drama. Fast where it matters, conservative where it counts.
+Website: https://basiliskops.github.io/annatar-site/
 
----
+## Practice
 
-## What we do
+Solutions architecture covers model and vendor selection, retrieval and memory design, orchestration, and evaluation harnesses, fitted to each client's data, stack, and risk posture. Agentic systems are workflows of cooperating agents built across Claude, OpenAI, and xAI, with human review checkpoints placed where judgment matters. Products are released under the Annatar name as they mature.
 
-* **Modernize critical workflows**: planning, scheduling, incident response, and field operations.
-* **Operational visibility**: real‑time telemetry, audit trails, and compliance‑friendly reporting.
-* **Resilience by default**: high‑availability services, graceful degradation, and clear runbooks.
-* **Secure data exchange**: least‑privilege APIs, verifiable pipelines, and deterministic processing.
+## Method
 
-## Why Rust
-
-* **Memory safety** without a garbage collector for predictable latency.
-* **Performance** suitable for edge devices and data‑heavy backends.
-* **Reliability** backed by strong typing, tests, and fearless refactoring.
-
-## Principles
-
-1. **Safety first** — threat modeling, strong defaults, and minimal attack surface.
-2. **Reliability** — SLAs, incident response, and post‑incident learning baked in.
-3. **Auditability** — immutable logs, clear change control, and traceable deployments.
-4. **Simplicity** — fewer moving parts, boring tech where possible, sharp tools where needed.
-5. **Respect for operators** — good logs, clear alerts, and fast rollback paths.
-
-## Areas we serve
-
-* U.S. **defense** programs with exacting reliability and review needs
-* Public and private **utilities** (power, water, gas) modernizing field and control workflows
-* Critical **infrastructure** operators improving uptime and safety
-
-> We ship SaaS, but we think like systems engineers. Uptime and clear failure modes trump cleverness.
-
-## Product foundations
-
-* **Backend**: Rust (Axum, Tokio), typed errors, structured logs (tracing)
-* **Data**: PostgreSQL (SQLx), migrations gated in CI
-* **Observability**: OpenTelemetry/Prometheus ready, correlation IDs everywhere
-* **Security**: strong auth, least privilege, encrypted at rest/in transit
-* **Delivery**: containers, repeatable deploys, and environment‑based configuration
-
-## A note on the name
-
-In an older tale, a certain figure once styled himself a *giver of gifts*. We prefer gifts that pass audits, survive load tests, and reduce pager noise. Rings not included.
-
-## Working with Annatar
-
-* Engagements start with a short discovery: goals, constraints, and risk review.
-* We deliver in small, verifiable increments with tests and clear acceptance.
-* You get honest timelines, documented trade‑offs, and operational runbooks.
+Engagements run in three phases: Survey, Architect, and Build and hand over. Each one ends with working software the client owns outright, delivered with documentation and evaluation harnesses.
 
 ## Contact
 
-* Email: **[annatar.ai@proton.me](mailto:annatar.ai@proton.me)**
-* LinkedIn: **[https://www.linkedin.com/in/thirdechelon](https://www.linkedin.com/in/thirdechelon)**
+Email annatar.ai@proton.me, or connect on [LinkedIn](https://www.linkedin.com/in/thirdechelon) and [X](https://x.com/clangnosis).
 
----
+## Repository
 
-### Status
-
-This repository hosts public materials and marketing collateral. Product code lives in private repos until release.
+This repository is the static source of the Annatar website, served by GitHub Pages. Machine-readable summaries for language models live at `llms.txt` and `llms-full.txt`.

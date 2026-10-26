@@ -1,0 +1,13 @@
+{
+  "name": "Annatar",
+  "short_name": "Annatar",
+  "description": "AI solutions architecture, agentic systems, and products for effective acceleration.",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#ECE6D9",
+  "theme_color": "#ECE6D9",
+  "icons": [
+    { "src": "assets/brand/logo-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/brand/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
