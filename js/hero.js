@@ -10,13 +10,18 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 const host = document.getElementById('hero-canvas');
-if (host) start(host);
+if (host) start(host).catch(e => { console.error('[hero]', e); host.classList.add('no-webgl'); });
 
 async function start(host) {
   const params = new URLSearchParams(location.search);
   const frozen = params.has('t') ? parseFloat(params.get('t')) : null;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile = window.innerWidth < 760;
+
+  // network first, in parallel: the point cloud and the stele's typefaces
+  const src = host.dataset.points;
+  const binP = loadPoints(src);
+  const fontsP = loadSteleFonts();
 
   let renderer;
   try {
@@ -28,25 +33,19 @@ async function start(host) {
   host.appendChild(renderer.domElement);
 
   // ---------- data ----------
-  const src = host.dataset.points;
-  const buf = src.endsWith('.txt')
-    ? await fetch(src).then(r => r.text()).then(t => Uint8Array.from(atob(t.trim()), c => c.charCodeAt(0)).buffer)
-    : await fetch(src).then(r => r.arrayBuffer());
-  const TOTAL = buf.byteLength / 5;
+  const { px, py, pink, TOTAL } = await binP;
   const N = mobile ? 70000 : TOTAL;
-  const xy = new Int16Array(buf, 0, TOTAL * 2);
-  const ink8 = new Uint8Array(buf, TOTAL * 4, TOTAL);
 
   const rng = mulberry(11);
   const man = new Float32Array(N * 3), ink = new Float32Array(N), rnd = new Float32Array(N * 4);
   for (let i = 0; i < N; i++) {
-    man[i * 3] = xy[i] / 16000;
-    man[i * 3 + 1] = xy[TOTAL + i] / 16000;
+    man[i * 3] = px[i];
+    man[i * 3 + 1] = py[i];
     man[i * 3 + 2] = (rng() - 0.5) * 0.02;
-    ink[i] = ink8[i] / 255;
+    ink[i] = pink[i] / 255;
     rnd[i * 4] = rng(); rnd[i * 4 + 1] = rng(); rnd[i * 4 + 2] = rng(); rnd[i * 4 + 3] = rng();
   }
-  const forms = [man, helix(N, rng), await monolith(N, rng), lattice(N, rng), dyson(N, rng), galaxy(N, rng)];
+  const forms = [man, helix(N, rng), man, man, man, man];
 
   const geo = new THREE.BufferGeometry();
   forms.forEach((f, i) => geo.setAttribute(i === 0 ? 'position' : 'p' + i, new THREE.BufferAttribute(f, 3)));
@@ -78,10 +77,11 @@ async function start(host) {
 
   // drifting motes at many depths, so the scene reads as a volume
   const DUST = mobile ? 900 : 2200;
+  const drng = mulberry(23);
   const dPos = new Float32Array(DUST * 3), dR = new Float32Array(DUST * 2);
   for (let i = 0; i < DUST; i++) {
-    dPos[i * 3] = (rng() - 0.5) * 9; dPos[i * 3 + 1] = (rng() - 0.5) * 5.5; dPos[i * 3 + 2] = -7 + rng() * 9.2;
-    dR[i * 2] = rng(); dR[i * 2 + 1] = rng();
+    dPos[i * 3] = (drng() - 0.5) * 9; dPos[i * 3 + 1] = (drng() - 0.5) * 5.5; dPos[i * 3 + 2] = -7 + drng() * 9.2;
+    dR[i * 2] = drng(); dR[i * 2 + 1] = drng();
   }
   const dGeo = new THREE.BufferGeometry();
   dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
@@ -195,10 +195,56 @@ async function start(host) {
     composer.render();
   }
   window.__heroFrame = (tt) => { window.__heroT = tt; frame(); };
+  // remaining forms, built off the critical path in the same order (same seed sequence);
+  // the monolith first appears at t = 7.1s, and its fonts have been loading since t = 0
+  async function buildRest() {
+    const later = [() => monolith(N, rng, fontsP), () => lattice(N, rng), () => dyson(N, rng), () => galaxy(N, rng)];
+    for (let i = 0; i < later.length; i++) {
+      await new Promise(r => setTimeout(r, 0));
+      const a = geo.getAttribute('p' + (i + 2));
+      a.array = await later[i]();
+      a.needsUpdate = true;
+    }
+  }
+  if (params.has('still')) { await buildRest(); frame(); window.__heroReady = true; return; }
   if (reduced) { new ResizeObserver(() => frame()).observe(host); frame(); window.__heroReady = true; return; }
-  if (params.has('still')) { frame(); window.__heroReady = true; return; }
   renderer.setAnimationLoop(() => { if (visible && !document.hidden) frame(); });
   window.__heroReady = true;
+  buildRest();
+}
+
+// Point cloud sampled from the drawing. File: gzip of four byte planes over points sorted by row
+// (row step, x low byte, x high byte, ink); x restarts on each new row and is delta-coded within it.
+// Grid is 4096 x 4096 over [-1.024, 1.024]. Points are shuffled after decoding so any prefix
+// (mobile draws the first 70k) is spread evenly over the figure.
+async function loadPoints(src) {
+  let res = await fetch(src);
+  let bytes;
+  if (src.endsWith('.txt')) { const t = (await res.text()).trim(); bytes = Uint8Array.from(atob(t), c => c.charCodeAt(0)); }
+  else bytes = new Uint8Array(await res.arrayBuffer());
+  const raw = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
+  const T = raw.length / 4, dy = raw.subarray(0, T), lo = raw.subarray(T, 2 * T), hi = raw.subarray(2 * T, 3 * T), ink = raw.subarray(3 * T);
+  const px = new Float32Array(T), py = new Float32Array(T), pink = new Uint8Array(T);
+  let x = 0, y = 0;
+  for (let i = 0; i < T; i++) {
+    const d = lo[i] | (hi[i] << 8);
+    if (i === 0 || dy[i] !== 0) { y += dy[i]; x = d; } else x += d;
+    px[i] = ((x * 8 + 4) - 16384) / 16000; py[i] = ((y * 8 + 4) - 16384) / 16000; pink[i] = ink[i];
+  }
+  const r = mulberry(7);
+  for (let i = T - 1; i > 0; i--) {
+    const j = Math.floor(r() * (i + 1));
+    let t = px[i]; px[i] = px[j]; px[j] = t; t = py[i]; py[i] = py[j]; py[j] = t; t = pink[i]; pink[i] = pink[j]; pink[j] = t;
+  }
+  return { px, py, pink, TOTAL: T };
+}
+
+function loadSteleFonts() {
+  try {
+    const runic = new FontFace('Futhorc', 'url(assets/fonts/noto-sans-runic-runic-400-normal.woff2)');
+    const roman = new FontFace('Lapidary', 'url(assets/fonts/cinzel-latin-600-normal.woff2)');
+    return Promise.all([runic.load(), roman.load()]).then(() => { document.fonts.add(runic); document.fonts.add(roman); }).catch(() => {});
+  } catch (e) { return Promise.resolve(); }
 }
 
 // ---------- shape generators (unit radius, origin = navel) ----------
@@ -255,14 +301,9 @@ function atom(N, r) {
 
 // A stele in the manner of the Rosetta Stone: the Anglo-Saxon futhorc above,
 // a Latin inscription below, cut into the face of a stone slab.
-async function monolith(N, r) {
+async function monolith(N, r, fontsP) {
   const W = 0.86, H = 2.05, D = 0.24;
-  try {
-    const runic = new FontFace('Futhorc', 'url(assets/fonts/noto-sans-runic-runic-400-normal.woff2)');
-    const roman = new FontFace('Lapidary', 'url(assets/fonts/cinzel-latin-600-normal.woff2)');
-    await Promise.all([runic.load(), roman.load()]);
-    document.fonts.add(runic); document.fonts.add(roman);
-  } catch (e) {}
+  await fontsP;
   const cw = 420, ch = Math.round(cw * H / W);
   const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
   const g = cv.getContext('2d');

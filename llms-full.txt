@@ -13,7 +13,7 @@ Architecture that carries language models out of the pilot stage and into the wo
 
 ## Practice
 
-Architecture for language models in live operations, and products that push the same frontier.
+Design and build work for production AI, plus products released under the Lastelle name.
 
 ### Solutions architecture
 

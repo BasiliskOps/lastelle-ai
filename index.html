@@ -35,10 +35,9 @@
   <link rel="me" href="https://x.com/clangnosis" />
   <link rel="me" href="https://www.linkedin.com/in/thirdechelon" />
   <link rel="preload" href="assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/vitruvian-pts.bin" as="fetch" crossorigin />
+  <link rel="modulepreload" href="js/hero.min.js" />
   <link rel="stylesheet" href="css/site.css" />
-  <script type="importmap">
-  { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
-  </script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -283,7 +282,7 @@
   <main id="main">
     <section class="hero" id="top" aria-label="Introduction">
       <div class="hero-card">
-        <div class="hero-canvas" id="hero-canvas" data-points="assets/vitruvian.bin" aria-hidden="true"></div>
+        <div class="hero-canvas" id="hero-canvas" data-points="assets/vitruvian-pts.bin" aria-hidden="true"></div>
         <div class="hero-copy">
           <h1 class="hero-title">Intelligence, engineered<br />for acceleration.</h1>
           <p class="hero-sub">AI architecture and agentic systems for organizations moving faster than their market, alongside products built in the spirit of effective acceleration.</p>
@@ -299,24 +298,24 @@
     <section class="section" id="practice" aria-labelledby="practice-title">
       <div class="head">
         <p class="eyebrow" data-reveal><i></i>Practice</p>
-        <h2 class="statement" id="practice-title" data-reveal>Architecture for language models in live operations, and products that push the same frontier.</h2>
+        <h2 class="statement" id="practice-title" data-reveal>Design and build work for production AI, plus products released under the Lastelle name.</h2>
       </div>
       <div class="plates">
         <article class="plate" data-reveal>
-          <svg class="icon" viewBox="0 0 256 256" aria-hidden="true"><path d="M232,58H70V40a6,6,0,0,0-6-6H48A30,30,0,0,0,18,64V176a30,30,0,0,0,30,30H232a6,6,0,0,0,6-6V64A6,6,0,0,0,232,58ZM30,64A18,18,0,0,1,48,46H58V146H48a29.87,29.87,0,0,0-18,6ZM226,194H48a18,18,0,0,1,0-36H64a6,6,0,0,0,6-6V70H226ZM104,138a6,6,0,0,0,0,12h18v10a6,6,0,0,0,12,0V150h28v10a6,6,0,0,0,12,0V150h18a6,6,0,0,0,0-12H174V118h18a6,6,0,0,0,0-12H174V96a6,6,0,0,0-12,0v10H134V96a6,6,0,0,0-12,0v10H104a6,6,0,0,0,0,12h18v20Zm30-20h28v20H134Z"/></svg>
-          <h3>Solutions architecture</h3>
+          <div class="plate-head"><svg class="icon" viewBox="0 0 256 256" aria-hidden="true"><path d="M232,58H70V40a6,6,0,0,0-6-6H48A30,30,0,0,0,18,64V176a30,30,0,0,0,30,30H232a6,6,0,0,0,6-6V64A6,6,0,0,0,232,58ZM30,64A18,18,0,0,1,48,46H58V146H48a29.87,29.87,0,0,0-18,6ZM226,194H48a18,18,0,0,1,0-36H64a6,6,0,0,0,6-6V70H226ZM104,138a6,6,0,0,0,0,12h18v10a6,6,0,0,0,12,0V150h28v10a6,6,0,0,0,12,0V150h18a6,6,0,0,0,0-12H174V118h18a6,6,0,0,0,0-12H174V96a6,6,0,0,0-12,0v10H134V96a6,6,0,0,0-12,0v10H104a6,6,0,0,0,0,12h18v20Zm30-20h28v20H134Z"/></svg>
+          <h3>Solutions architecture</h3></div>
           <p><strong>Designs fitted to your data.</strong> Reference architectures for model selection, retrieval, orchestration, and evaluation, matched to your stack and your risk posture.</p>
           <ul class="specs"><li>Model and vendor selection</li><li>Retrieval and memory design</li><li>Evaluation harnesses</li></ul>
         </article>
         <article class="plate" data-reveal>
-          <svg class="icon" viewBox="0 0 256 256" aria-hidden="true"><path d="M160,110h48a14,14,0,0,0,14-14V48a14,14,0,0,0-14-14H160a14,14,0,0,0-14,14V66H128a22,22,0,0,0-22,22v34H70V112A14,14,0,0,0,56,98H24a14,14,0,0,0-14,14v32a14,14,0,0,0,14,14H56a14,14,0,0,0,14-14V134h36v34a22,22,0,0,0,22,22h18v18a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V160a14,14,0,0,0-14-14H160a14,14,0,0,0-14,14v18H128a10,10,0,0,1-10-10V88a10,10,0,0,1,10-10h18V96A14,14,0,0,0,160,110ZM58,144a2,2,0,0,1-2,2H24a2,2,0,0,1-2-2V112a2,2,0,0,1,2-2H56a2,2,0,0,1,2,2Zm100,16a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2v48a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2Zm0-112a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2V96a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2Z"/></svg>
-          <h3>Agentic systems</h3>
+          <div class="plate-head"><svg class="icon" viewBox="0 0 256 256" aria-hidden="true"><path d="M160,110h48a14,14,0,0,0,14-14V48a14,14,0,0,0-14-14H160a14,14,0,0,0-14,14V66H128a22,22,0,0,0-22,22v34H70V112A14,14,0,0,0,56,98H24a14,14,0,0,0-14,14v32a14,14,0,0,0,14,14H56a14,14,0,0,0,14-14V134h36v34a22,22,0,0,0,22,22h18v18a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V160a14,14,0,0,0-14-14H160a14,14,0,0,0-14,14v18H128a10,10,0,0,1-10-10V88a10,10,0,0,1,10-10h18V96A14,14,0,0,0,160,110ZM58,144a2,2,0,0,1-2,2H24a2,2,0,0,1-2-2V112a2,2,0,0,1,2-2H56a2,2,0,0,1,2,2Zm100,16a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2v48a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2Zm0-112a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2V96a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2Z"/></svg>
+          <h3>Agentic systems</h3></div>
           <p><strong>Agents that carry real work.</strong> Workflows of cooperating agents across Claude, OpenAI, and xAI, with human checkpoints placed where judgment matters.</p>
           <ul class="specs"><li>Orchestration layers</li><li>Tool and data integration</li><li>Human review checkpoints</li></ul>
         </article>
         <article class="plate" data-reveal>
-          <svg class="icon" viewBox="0 0 256 256" aria-hidden="true"><path d="M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.440a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.890V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.870,121.64l-38.14-5.32A1.930,1.930,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.870-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.470,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.910,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z"/></svg>
-          <h3>Products</h3>
+          <div class="plate-head"><svg class="icon" viewBox="0 0 256 256" aria-hidden="true"><path d="M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.440a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.890V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.870,121.64l-38.14-5.32A1.930,1.930,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.870-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.470,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.910,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z"/></svg>
+          <h3>Products</h3></div>
           <p><strong>Tools for people building the future.</strong> Software released under the Lastelle AI name to speed up the industries pushing technology forward.</p>
           <ul class="specs"><li>Built in the open</li><li>Designed for self service</li><li>Released as they mature</li></ul>
         </article>
@@ -404,6 +403,6 @@
   </footer>
 
   <script src="js/site.js" defer></script>
-  <script type="module" src="js/hero.js"></script>
+  <script type="module" src="js/hero.min.js"></script>
 </body>
 </html>
