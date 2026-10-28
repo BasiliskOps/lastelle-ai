@@ -1,4 +1,4 @@
-# Annatar. All crawlers, including AI search and answer engines, are welcome.
+# Lastelle AI. All crawlers, including AI search and answer engines, are welcome.
 
 User-agent: *
 Allow: /
@@ -26,4 +26,4 @@ User-agent: cohere-ai
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://basiliskops.github.io/annatar-site/sitemap.xml
+Sitemap: https://lastelle.ai/sitemap.xml

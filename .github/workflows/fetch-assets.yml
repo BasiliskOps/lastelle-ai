@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Download public-domain Vitruvian Man scan
         run: |
-          UA="annatar-site-asset-fetch/1.0 (github.com/basiliskops/annatar-site)"
+          UA="lastelle-site-asset-fetch/1.0 (github.com/basiliskops/annatar-site)"
           curl -fsSL -A "$UA" -o assets/vitruvian.jpg "https://commons.wikimedia.org/wiki/Special:FilePath/Da_Vinci_Vitruve_Luc_Viatour.jpg?width=2400"
           file assets/vitruvian.jpg; ls -la assets
       - name: Commit
