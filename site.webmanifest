@@ -1,7 +1,7 @@
 {
   "name": "Lastelle AI",
   "short_name": "Lastelle AI",
-  "description": "AI solutions architecture, agentic systems, and products for effective acceleration.",
+  "description": "Agentic systems and autonomous hardware, built in-house by Lastelle AI.",
   "start_url": "./",
   "display": "browser",
   "background_color": "#ECE6D9",

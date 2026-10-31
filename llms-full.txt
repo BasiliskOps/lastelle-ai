@@ -1,92 +1,76 @@
 # Lastelle AI
 
-> Lastelle AI is a one-person AI solutions architecture practice run by Damien Rosecraft. It designs and builds production architecture for large language models and agentic AI systems, and releases software products built in the spirit of effective acceleration (e/acc).
+> Lastelle AI Corporation builds agentic systems and AI-embedded hardware as proprietary products, from algorithmic anomaly detection in capital markets to resource prospecting across the solar system. It was founded by Damien Rosecraft.
 
 Source: https://lastelle.ai/
-Last updated: 2026-10-26
+Last updated: 2026-10-31
 
 ## Intelligence synthesized by humans
 
-AI architecture and agentic systems for organizations moving faster than their market, alongside products built in the spirit of effective acceleration.
+Lastelle AI builds agentic systems and AI-embedded hardware as proprietary products, from market intelligence on Earth to resource prospecting beyond it.
 
-Architecture that carries language models out of the pilot stage and into the work an organization runs on.
+From anomaly detection in capital markets to resource prospecting across the solar system
 
-## Practice
+## Products
 
-Design and build work for production AI, plus products released under the Lastelle name.
+Software and hardware in development under the Lastelle AI name
 
-### Solutions architecture
+### BARDT
 
-Designs fitted to the client's data. Reference architectures for model selection, retrieval, orchestration, and evaluation, matched to the client's stack and risk posture.
+Institutional-grade market intelligence built on algorithmic anomaly detection across every public company in biotech, aerospace, robotics, defense, technology, and energy. Each signal carries full provenance to its source data, and clients classify and filter the market to the exact segment they hold a view on. BARDT earns on two fronts: licensed access for institutional clients through a dedicated API, and proprietary capital deployed on its own signals. It is currently completing its historical backfill ahead of launch.
 
-- Model and vendor selection
-- Retrieval and memory design
-- Evaluation harnesses
+### Probe
 
-### Agentic systems
+A resource prospecting program spanning the solar system. Agentic systems sift published survey and mission data to map and rank resource-bearing asteroids, building the target catalog that will direct Lastelle-designed probes on scouting missions of their own. Probe positions Lastelle in the emerging space resource economy from its earliest stage.
 
-Agents that carry real work. Workflows of cooperating agents with human checkpoints placed where judgment matters.
+### Hardware
 
-- Orchestration layers
-- Tool and data integration
-- Human review checkpoints
+A series of in-house systems with AI embedded at the device level, each agentically interoperable with every other Lastelle system. Initial applications span energy and defense. Every Lastelle defense system is non-lethal by design, built to detect, intercept, and protect.
 
-### Products
+## Mission
 
-Tools for people building the future. Software released under the Lastelle AI name to speed up the industries pushing technology forward.
+Lastelle AI builds proprietary intelligence and the hardware to carry it beyond Earth
 
-- Built in the open
-- Designed for self service
-- Released as they mature
+BARDT anchors the company's capital base, converting market anomalies into licensed signal and disciplined capital deployment.
 
-## Method
-
-Every engagement ends in working software that the client owns outright.
-
-1. Survey: A map of the client's data, systems, and constraints, and an agreed definition of what success will be measured against.
-2. Architect: A reference design with the models, retrieval, orchestration, and controls chosen for the case.
-3. Build and hand over: Working software in small, tested increments, delivered with documentation and evaluation harnesses so it keeps running on its own.
+Those returns finance the longer horizon: a fleet of interoperable AI-embedded hardware and a prospecting program that charts the resources of the solar system, first through published data and later through probes of Lastelle's own design.
 
 ## About
 
-One builder, from the first call to production.
-
-Damien Rosecraft is an AI solutions architect working in technology since 2016, and he runs Lastelle AI on his own. The person who scopes a system is the same person who designs it, writes it, and stands behind it once it is live.
-
-His work divides between architecture for organizations putting language models, agents, and automated pipelines into live operations, and products he releases himself to push the frontier faster.
+Lastelle AI Corporation was founded by Damien Rosecraft, a technologist since 2016 who architects every system the company ships
 
 - LinkedIn: https://www.linkedin.com/in/thirdechelon
 - X: https://x.com/clangnosis
 
 ## FAQ
 
-### What kind of work does Lastelle AI take on?
+### What does Lastelle AI build?
 
-Solutions architecture and agentic systems for organizations putting language models into live operations, plus products released under the Lastelle AI name.
+Agentic systems and AI-embedded hardware, developed and owned as Lastelle products.
 
-### Who does the work?
+### Does Lastelle AI take client work?
 
-Damien Rosecraft, from the first call to production. Lastelle AI is a one person practice, so nothing is handed off to a team the client never met.
+Lastelle builds its own products exclusively. Inquiries about data licensing, API access, and partnerships are welcome.
 
 ### What technology are the systems built on?
 
-State-of-the-art solutions from the frontier. Every frontier model is in use, chosen per task: Claude (Anthropic), GPT and the o-series reasoning models (OpenAI), Gemini (Google DeepMind), Grok (xAI), Llama (Meta), Mistral and Codestral (Mistral AI), DeepSeek, Qwen (Alibaba), Kimi (Moonshot AI), GLM (Zhipu AI), Command (Cohere), and Nova (Amazon).
+State-of-the-art solutions from the frontier.
 
-### What do I own at the end of an engagement?
+### Where does BARDT get its data?
 
-The working software, its documentation, and the evaluation harnesses that measure it. Ownership is clear from the start.
+Verified market data only, with every signal traceable to its source.
 
-### Where do people stay in the loop?
+### When will BARDT launch?
 
-Human checkpoints are placed wherever a decision needs judgment, and agents handle the rest.
+On completion of its historical backfill, once its signals meet Lastelle's validation standard.
 
 ### How quickly will I hear back?
 
-Within two business days, with a first read on scope and architecture.
+Within two business days.
 
 ## Contact
 
-Describe what you are building. Every inquiry gets a reply within two business days with a first read on scope and architecture.
+For data licensing, API access, and partnerships.
 
 - Email: damien@lastelle.ai
 - Form: https://lastelle.ai/#contact

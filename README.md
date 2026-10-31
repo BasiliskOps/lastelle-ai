@@ -1,16 +1,12 @@
 # Lastelle AI
 
-Lastelle AI is a one-person AI solutions architecture practice run by Damien Rosecraft. It designs and builds production architecture for large language models and agentic AI systems, and releases software products built in the spirit of effective acceleration (e/acc).
+Lastelle AI Corporation builds agentic systems and AI-embedded hardware as proprietary products, from algorithmic anomaly detection in capital markets to resource prospecting across the solar system.
 
 Website: https://lastelle.ai/
 
-## Practice
+## Products
 
-Solutions architecture covers model and vendor selection, retrieval and memory design, orchestration, and evaluation harnesses, fitted to each client's data, stack, and risk posture. Agentic systems are workflows of cooperating agents with human review checkpoints placed where judgment matters. Products are released under the Lastelle AI name as they mature.
-
-## Method
-
-Engagements run in three phases: Survey, Architect, and Build and hand over. Each one ends with working software the client owns outright, delivered with documentation and evaluation harnesses.
+BARDT is institutional-grade market intelligence built on algorithmic anomaly detection, earning through licensed API access and proprietary capital deployed on its own signals. Probe is a resource prospecting program spanning the solar system. Lastelle Hardware is a series of in-house systems with AI embedded at the device level, agentically interoperable across the line.
 
 ## Contact
 

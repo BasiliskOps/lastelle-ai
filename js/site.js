@@ -35,7 +35,7 @@
       spyLinks.forEach(function (a) { a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + e.target.id)); });
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
-  ['practice', 'method', 'about', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+  ['products', 'mission', 'about', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
 
   // tagline: each word lights up as it crosses a line two thirds down the screen
   var tag = document.getElementById('tagline');
