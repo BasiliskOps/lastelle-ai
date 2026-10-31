@@ -23,6 +23,23 @@ User-agent: Amazonbot
 User-agent: Meta-ExternalAgent
 User-agent: MistralAI-User
 User-agent: cohere-ai
+User-agent: Claude-Web
+User-agent: ChatGPT-Agent
+User-agent: GoogleOther
+User-agent: Google-CloudVertexBot
+User-agent: Meta-ExternalFetcher
+User-agent: FacebookBot
+User-agent: cohere-training-data-crawler
+User-agent: Bytespider
+User-agent: YouBot
+User-agent: PhindBot
+User-agent: AI2Bot
+User-agent: Ai2Bot-Dolma
+User-agent: Diffbot
+User-agent: Timpibot
+User-agent: YandexBot
+User-agent: Baiduspider
+User-agent: PetalBot
 User-agent: CCBot
 Allow: /
 

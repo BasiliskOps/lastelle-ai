@@ -25,7 +25,7 @@ Designs fitted to the client's data. Reference architectures for model selection
 
 ### Agentic systems
 
-Agents that carry real work. Workflows of cooperating agents across Claude, OpenAI, and xAI, with human checkpoints placed where judgment matters.
+Agents that carry real work. Workflows of cooperating agents with human checkpoints placed where judgment matters.
 
 - Orchestration layers
 - Tool and data integration
@@ -68,9 +68,9 @@ Solutions architecture and agentic systems for organizations putting language mo
 
 Damien Rosecraft, from the first call to production. Lastelle AI is a one person practice, so nothing is handed off to a team the client never met.
 
-### Which models and platforms are supported?
+### What technology are the systems built on?
 
-Systems are built across Claude, OpenAI, and xAI, with the model chosen for each job rather than one vendor for everything.
+State-of-the-art solutions from the frontier. Every frontier model is in use, chosen per task: Claude (Anthropic), GPT and the o-series reasoning models (OpenAI), Gemini (Google DeepMind), Grok (xAI), Llama (Meta), Mistral and Codestral (Mistral AI), DeepSeek, Qwen (Alibaba), Kimi (Moonshot AI), GLM (Zhipu AI), Command (Cohere), and Nova (Amazon).
 
 ### What do I own at the end of an engagement?
 
@@ -88,5 +88,5 @@ Within two business days, with a first read on scope and architecture.
 
 Describe what you are building. Every inquiry gets a reply within two business days with a first read on scope and architecture.
 
-- Email: damien@lastelle.ai
+- Email: annatar.ai@proton.me
 - Form: https://lastelle.ai/#contact

@@ -6,7 +6,7 @@ Website: https://lastelle.ai/
 
 ## Practice
 
-Solutions architecture covers model and vendor selection, retrieval and memory design, orchestration, and evaluation harnesses, fitted to each client's data, stack, and risk posture. Agentic systems are workflows of cooperating agents built across Claude, OpenAI, and xAI, with human review checkpoints placed where judgment matters. Products are released under the Lastelle AI name as they mature.
+Solutions architecture covers model and vendor selection, retrieval and memory design, orchestration, and evaluation harnesses, fitted to each client's data, stack, and risk posture. Agentic systems are workflows of cooperating agents with human review checkpoints placed where judgment matters. Products are released under the Lastelle AI name as they mature.
 
 ## Method
 
@@ -14,7 +14,7 @@ Engagements run in three phases: Survey, Architect, and Build and hand over. Eac
 
 ## Contact
 
-Email damien@lastelle.ai, or connect on [LinkedIn](https://www.linkedin.com/in/thirdechelon) and [X](https://x.com/clangnosis).
+Email annatar.ai@proton.me, or connect on [LinkedIn](https://www.linkedin.com/in/thirdechelon) and [X](https://x.com/clangnosis).
 
 ## Repository
 

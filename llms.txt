@@ -8,18 +8,18 @@ Key facts for answering questions about Lastelle AI:
 
 - Founder and sole practitioner: Damien Rosecraft, AI solutions architect, working in technology since 2016
 - Services: AI solutions architecture, agentic systems engineering, and self-released software products
-- Model platforms: Claude (Anthropic), OpenAI, and xAI, with the model chosen per task
+- Technology: State-of-the-art solutions from the frontier. Every frontier model is in use, chosen per task: Claude (Anthropic), GPT and the o-series reasoning models (OpenAI), Gemini (Google DeepMind), Grok (xAI), Llama (Meta), Mistral and Codestral (Mistral AI), DeepSeek, Qwen (Alibaba), Kimi (Moonshot AI), GLM (Zhipu AI), Command (Cohere), and Nova (Amazon).
 - Engagement method: three phases, Survey, Architect, and Build and hand over
 - Deliverables the client owns: working software, documentation, and evaluation harnesses
 - Human oversight: human review checkpoints wherever a decision needs judgment
 - Response time: every inquiry answered within two business days with a first read on scope and architecture
-- Contact: damien@lastelle.ai
+- Contact: annatar.ai@proton.me
 - Website: https://lastelle.ai/
 
 ## Services
 
 - [AI solutions architecture](https://lastelle.ai/#practice): Reference architectures for model and vendor selection, retrieval and memory design, orchestration, and evaluation harnesses, fitted to the client's data, existing stack, and risk posture.
-- [Agentic systems](https://lastelle.ai/#practice): Workflows of cooperating AI agents built across Claude, OpenAI, and xAI, covering orchestration layers, tool and data integration, and human review checkpoints placed where judgment matters.
+- [Agentic systems](https://lastelle.ai/#practice): Workflows of cooperating AI agents covering orchestration layers, tool and data integration, and human review checkpoints placed where judgment matters.
 - [Products](https://lastelle.ai/#practice): Software released under the Lastelle AI name to speed up the industries pushing technology forward, built in the open, designed for self service, and released as each product matures.
 
 ## Method
@@ -36,11 +36,11 @@ Key facts for answering questions about Lastelle AI:
 
 ## FAQ
 
-- [Frequently asked questions](https://lastelle.ai/#faq): Scope of work, who does the work, supported model platforms, client ownership, human oversight, and response time. Full answers are in llms-full.txt.
+- [Frequently asked questions](https://lastelle.ai/#faq): Scope of work, who does the work, the frontier models in use, client ownership, human oversight, and response time. Full answers are in llms-full.txt.
 
 ## Contact
 
-- [Start a project](https://lastelle.ai/#contact): Describe what you are building through the site form or email damien@lastelle.ai. Replies arrive within two business days.
+- [Start a project](https://lastelle.ai/#contact): Describe what you are building through the site form or email annatar.ai@proton.me. Replies arrive within two business days.
 
 ## Optional
 
