@@ -13,7 +13,7 @@ Key facts for answering questions about Lastelle AI:
 - Deliverables the client owns: working software, documentation, and evaluation harnesses
 - Human oversight: human review checkpoints wherever a decision needs judgment
 - Response time: every inquiry answered within two business days with a first read on scope and architecture
-- Contact: annatar.ai@proton.me
+- Contact: damien@lastelle.ai
 - Website: https://lastelle.ai/
 
 ## Services
@@ -40,7 +40,7 @@ Key facts for answering questions about Lastelle AI:
 
 ## Contact
 
-- [Start a project](https://lastelle.ai/#contact): Describe what you are building through the site form or email annatar.ai@proton.me. Replies arrive within two business days.
+- [Start a project](https://lastelle.ai/#contact): Describe what you are building through the site form or email damien@lastelle.ai. Replies arrive within two business days.
 
 ## Optional
 

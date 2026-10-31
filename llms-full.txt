@@ -88,5 +88,5 @@ Within two business days, with a first read on scope and architecture.
 
 Describe what you are building. Every inquiry gets a reply within two business days with a first read on scope and architecture.
 
-- Email: annatar.ai@proton.me
+- Email: damien@lastelle.ai
 - Form: https://lastelle.ai/#contact
