@@ -14,7 +14,7 @@ Engagements run in three phases: Survey, Architect, and Build and hand over. Eac
 
 ## Contact
 
-Email annatar.ai@proton.me, or connect on [LinkedIn](https://www.linkedin.com/in/thirdechelon) and [X](https://x.com/clangnosis).
+Email damien@lastelle.ai, or connect on [LinkedIn](https://www.linkedin.com/in/thirdechelon) and [X](https://x.com/clangnosis).
 
 ## Repository
 
