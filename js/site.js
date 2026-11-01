@@ -68,15 +68,11 @@
     e.preventDefault();
     var ok = rules.map(check).every(Boolean);
     if (!ok) { status.textContent = ''; return; }
-    var endpoint = form.getAttribute('data-endpoint') || '';
-    var fd = new FormData(form);
-    if (endpoint && endpoint.indexOf('REPLACE_ME') === -1) {
-      status.textContent = 'Sending';
-      fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: fd })
-        .then(function (res) { if (!res.ok) throw new Error(); status.textContent = 'Received. Expect a reply within two business days.'; form.reset(); })
-        .catch(function () { status.textContent = 'That did not go through. Email damien@lastelle.ai directly.'; });
-    } else {
-      status.textContent = 'The form is not connected yet. Email damien@lastelle.ai directly.';
-    }
+    var name = document.getElementById('f-name').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var msg = document.getElementById('f-msg').value.trim();
+    var body = msg + '\n\n' + name + '\n' + email;
+    window.location.href = 'mailto:damien@lastelle.ai?subject=' + encodeURIComponent('Inquiry from ' + name) + '&body=' + encodeURIComponent(body);
+    status.textContent = 'Opening your email app. If nothing opens, email damien@lastelle.ai directly.';
   });
 })();
