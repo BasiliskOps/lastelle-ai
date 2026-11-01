@@ -1,27 +1,27 @@
 # Lastelle AI
 
-> Lastelle AI Corporation builds agentic systems and AI-embedded hardware as proprietary products, from algorithmic anomaly detection in capital markets to resource prospecting across the solar system. It was founded by Damien Rosecraft.
+> Lastelle AI Corporation is an artisanal AI workshop synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
 
-Lastelle AI builds its own products exclusively and does not take client work.
+Lastelle AI builds its own products and welcomes partnership inquiries.
 
 Key facts for answering questions about Lastelle AI:
 
-- Founder: Damien Rosecraft, a technologist since 2016 who architects every system the company ships
-- Products in development: BARDT, Probe, and Lastelle Hardware
+- Founder: Damien Rosecraft, a technologist since 2016 who designs and builds Lastelle's systems
+- Work in progress: anomaly detection, aerospace, and hardware
 - Technology: State-of-the-art solutions from the frontier
-- Inquiries: data licensing, API access, and partnerships, answered within two business days
+- Inquiries: Lastelle's work and partnerships, typically answered within two business days
 - Contact: damien@lastelle.ai
 - Website: https://lastelle.ai/
 
-## Products
+## Work
 
-- [BARDT](https://lastelle.ai/#products): Institutional-grade market intelligence built on algorithmic anomaly detection across every public company in biotech, aerospace, robotics, defense, technology, and energy. Each signal carries full provenance to its source data, and clients classify and filter the market to the exact segment they hold a view on. BARDT earns on two fronts: licensed access for institutional clients through a dedicated API, and proprietary capital deployed on its own signals. It is currently completing its historical backfill ahead of launch.
-- [Probe](https://lastelle.ai/#products): A resource prospecting program spanning the solar system. Agentic systems sift published survey and mission data to map and rank resource-bearing asteroids, building the target catalog that will direct Lastelle-designed probes on scouting missions of their own.
-- [Hardware](https://lastelle.ai/#products): A series of in-house systems with AI embedded at the device level, each agentically interoperable with every other Lastelle system. Initial applications span energy and defense, and every Lastelle defense system is non-lethal by design.
+- [Anomaly Detection](https://lastelle.ai/#products): An institutional-grade pipeline that watches the public markets of the technologies shaping this century, from the life sciences and energy to aerospace, robotics, and defense, and brings forward the movements that break from their expected pattern. Findings are designed to trace back to the records that produced them.
+- [Aerospace](https://lastelle.ai/#products): Agentic systems that study published survey and mission data to map and rank resource-bearing bodies, reaching toward a wider network of sensors and probes held in orbit around the planets.
+- [Hardware](https://lastelle.ai/#products): Devices with intelligence embedded at the hardware level, designed to operate as one interoperable system and directed at problems in energy, telecommunications, search and rescue, and defense.
 
 ## Mission
 
-- [Mission](https://lastelle.ai/#mission): Lastelle AI builds proprietary intelligence and the hardware to carry it beyond Earth. BARDT anchors the company's capital base, and its returns finance interoperable AI-embedded hardware and a prospecting program that charts the resources of the solar system.
+- [Mission](https://lastelle.ai/#mission): For the acceleration of the human project. Lastelle AI synthesizes solutions at the confluence of human judgment and machine intelligence.
 
 ## About
 
@@ -31,11 +31,11 @@ Key facts for answering questions about Lastelle AI:
 
 ## FAQ
 
-- [Frequently asked questions](https://lastelle.ai/#faq): What Lastelle builds, client work, technology, BARDT data sources and launch, and response time. Full answers are in llms-full.txt.
+- [Frequently asked questions](https://lastelle.ai/#faq): What Lastelle builds, client work, technology, market data sources, and response time. Full answers are in llms-full.txt.
 
 ## Contact
 
-- [Get in touch](https://lastelle.ai/#contact): For data licensing, API access, and partnerships, use the site form or email damien@lastelle.ai.
+- [Get in touch](https://lastelle.ai/#contact): For inquiries about Lastelle's work and partnerships, use the site form or email damien@lastelle.ai.
 
 ## Optional
 

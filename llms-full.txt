@@ -1,43 +1,39 @@
 # Lastelle AI
 
-> Lastelle AI Corporation builds agentic systems and AI-embedded hardware as proprietary products, from algorithmic anomaly detection in capital markets to resource prospecting across the solar system. It was founded by Damien Rosecraft.
+> Lastelle AI Corporation is an artisanal AI workshop synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
 
 Source: https://lastelle.ai/
-Last updated: 2026-10-31
+Last updated: 2026-11-01
 
 ## Intelligence synthesized by humans
 
-Lastelle AI builds agentic systems and AI-embedded hardware as proprietary products, from market intelligence on Earth to resource prospecting beyond it.
-
-From anomaly detection in capital markets to resource prospecting across the solar system
+Lastelle AI is an artisanal AI workshop, synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence.
 
 ## Products
 
-Software and hardware in development under the Lastelle AI name
+Works in progress at the bench
 
-### BARDT
+### Anomaly Detection
 
-Institutional-grade market intelligence built on algorithmic anomaly detection across every public company in biotech, aerospace, robotics, defense, technology, and energy. Each signal carries full provenance to its source data, and clients classify and filter the market to the exact segment they hold a view on. BARDT earns on two fronts: licensed access for institutional clients through a dedicated API, and proprietary capital deployed on its own signals. It is currently completing its historical backfill ahead of launch.
+An institutional-grade pipeline that watches the public markets of the technologies shaping this century, from the life sciences and energy to aerospace, robotics, and defense, and brings forward the movements that break from their expected pattern. Findings are designed to trace back to the records that produced them.
 
-### Probe
+### Aerospace
 
-A resource prospecting program spanning the solar system. Agentic systems sift published survey and mission data to map and rank resource-bearing asteroids, building the target catalog that will direct Lastelle-designed probes on scouting missions of their own. Probe positions Lastelle in the emerging space resource economy from its earliest stage.
+Humanity still observes its own star system through a scattering of instruments. Lastelle's aerospace work begins with agentic systems that study published survey and mission data to map and rank resource-bearing bodies. From there it reaches toward a wider network of sensors and probes held in orbit around the planets, extending the sight and hearing of a civilization that has barely begun to look outward from its home.
 
 ### Hardware
 
-A series of in-house systems with AI embedded at the device level, each agentically interoperable with every other Lastelle system. Initial applications span energy and defense. Every Lastelle defense system is non-lethal by design, built to detect, intercept, and protect.
+Devices with intelligence embedded at the hardware level, designed to operate as one interoperable system and directed at problems in energy, telecommunications, search and rescue, and defense.
 
 ## Mission
 
-Lastelle AI builds proprietary intelligence and the hardware to carry it beyond Earth
+For the acceleration of the human project
 
-BARDT anchors the company's capital base, converting market anomalies into licensed signal and disciplined capital deployment.
-
-Those returns finance the longer horizon: a fleet of interoperable AI-embedded hardware and a prospecting program that charts the resources of the solar system, first through published data and later through probes of Lastelle's own design.
+Lastelle AI synthesizes solutions at the confluence of human judgment and machine intelligence, where intuition and conviction lend direction to computation on a scale no single mind could hold. Each system is composed with the deliberation of the workshop and carried out with the reach of the frontier, so that what leaves the bench extends what people are able to build, understand, and become.
 
 ## About
 
-Lastelle AI Corporation was founded by Damien Rosecraft, a technologist since 2016 who architects every system the company ships
+Lastelle AI Corporation was founded by Damien Rosecraft, a technologist since 2016 who designs and builds Lastelle's systems
 
 - LinkedIn: https://www.linkedin.com/in/thirdechelon
 - X: https://x.com/clangnosis
@@ -46,31 +42,27 @@ Lastelle AI Corporation was founded by Damien Rosecraft, a technologist since 20
 
 ### What does Lastelle AI build?
 
-Agentic systems and AI-embedded hardware, developed and owned as Lastelle products.
+Agentic systems and AI-embedded hardware, designed and built in-house.
 
 ### Does Lastelle AI take client work?
 
-Lastelle builds its own products exclusively. Inquiries about data licensing, API access, and partnerships are welcome.
+Lastelle builds its own products. Partnership inquiries are welcome.
 
 ### What technology are the systems built on?
 
 State-of-the-art solutions from the frontier.
 
-### Where does BARDT get its data?
+### Where does the market data come from?
 
-Verified market data only, with every signal traceable to its source.
-
-### When will BARDT launch?
-
-On completion of its historical backfill, once its signals meet Lastelle's validation standard.
+Verified market sources, with findings designed to trace back to their origin.
 
 ### How quickly will I hear back?
 
-Within two business days.
+Typically within two business days.
 
 ## Contact
 
-For data licensing, API access, and partnerships.
+For inquiries about Lastelle's work and partnerships.
 
 - Email: damien@lastelle.ai
 - Form: https://lastelle.ai/#contact

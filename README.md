@@ -1,12 +1,12 @@
 # Lastelle AI
 
-Lastelle AI Corporation builds agentic systems and AI-embedded hardware as proprietary products, from algorithmic anomaly detection in capital markets to resource prospecting across the solar system.
+Lastelle AI Corporation is an artisanal AI workshop synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence.
 
 Website: https://lastelle.ai/
 
-## Products
+## Work
 
-BARDT is institutional-grade market intelligence built on algorithmic anomaly detection, earning through licensed API access and proprietary capital deployed on its own signals. Probe is a resource prospecting program spanning the solar system. Lastelle Hardware is a series of in-house systems with AI embedded at the device level, agentically interoperable across the line.
+Current work spans an institutional-grade anomaly detection pipeline, aerospace, and AI-embedded hardware.
 
 ## Contact
 
@@ -14,7 +14,7 @@ Email damien@lastelle.ai, or connect on [LinkedIn](https://www.linkedin.com/in/t
 
 ## Repository
 
-This repository is the static source of the Lastelle AI website, served by GitHub Pages. Machine-readable summaries for language models live at `llms.txt` and `llms-full.txt`.
+This repository is the static source of the Lastelle AI website, served by Cloudflare. Machine-readable summaries for language models live at `llms.txt` and `llms-full.txt`.
 
 The hero scene is edited in `js/hero.js` and served as the single bundle `js/hero.min.js` (three.js r170 inlined, no import map). Rebuild after any change to `js/hero.js`:
 
