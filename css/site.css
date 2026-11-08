@@ -189,9 +189,10 @@ p, li { text-wrap: pretty; }
 }
 .plate:hover { transform: translateY(-4px); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 0 0 1px rgba(80,60,35,.14), 0 4px 8px rgba(60,40,20,.06), 0 48px 64px -32px rgba(60,40,20,.55); }
 .plate-head { display: flex; align-items: flex-start; gap: var(--s-100); margin-bottom: var(--s-200); }
-.plate-head .atom { width: 32px; height: 32px; flex: none; margin-top: 0; overflow: visible; }
+.plate-head .atom { width: 38px; height: 38px; flex: none; margin-top: -3px; overflow: visible; }
 .atom-lattice .bonds { opacity: .55; }
 .atom-lattice .lattice-carbon { fill: var(--ink); }
+.atom-lattice .lattice-nodes { fill: var(--amber); stroke: var(--ink); stroke-width: .65; }
 .plate h3 { margin: 0; font-weight: 600; font-size: 24px; line-height: 32px; letter-spacing: -0.02em; }
 .plate p { margin: 0 0 var(--s-300); color: var(--ink-2); }
 .plate p strong { color: var(--ink); font-weight: 600; }
