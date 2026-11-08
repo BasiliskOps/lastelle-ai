@@ -173,10 +173,11 @@ p, li { text-wrap: pretty; }
 .head { display: grid; gap: var(--s-300); margin-bottom: var(--s-600); }
 @media (min-width: 1024px) { .head { margin-bottom: var(--s-700); } }
 .eyebrow { margin: 0; display: flex; align-items: center; gap: var(--s-100); font: 500 12px/16px var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-2); }
-.eyebrow i { width: 8px; height: 8px; flex: none; border-radius: 9999px; background: var(--amber); box-shadow: 0 0 0 4px rgba(197,116,32,.13); animation: amber-halo-beacon 4s ease-in-out infinite; }
-@keyframes amber-halo-beacon {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(197,116,32,.09); }
-  50% { box-shadow: 0 0 0 7px rgba(197,116,32,.23); }
+.eyebrow i { width: 8px; height: 8px; flex: none; border-radius: 9999px; background: var(--amber); box-shadow: 0 0 0 4px rgba(197,116,32,.13); animation: amber-halo-pulse 3.2s ease-in-out infinite; }
+@keyframes amber-halo-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(197,116,32,.10); }
+  18% { box-shadow: 0 0 0 4px rgba(197,116,32,.30); }
+  52% { box-shadow: 0 0 0 4px rgba(197,116,32,.10); }
 }
 @media (prefers-reduced-motion: reduce) { .eyebrow i { animation: none; } }
 .statement { margin: 0; max-width: 26ch; font-weight: 500; font-size: 30px; line-height: 36px; letter-spacing: -0.03em; }
