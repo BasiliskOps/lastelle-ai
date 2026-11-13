@@ -108,7 +108,7 @@ void main(){
   // ---- the planet (linear HDR out)
   const NS = mobile ? 10 : 14;
   const F_EARTH = H + `out vec4 o;
-uniform vec2 uRes; uniform float uTanY, uAspect, uTex, uFluid, uRot, uExpo;
+uniform vec2 uRes; uniform float uTanY, uAspect, uTex, uFluid, uRot, uExpo, uTour;
 uniform vec3 uC, uF, uUp, uSun;
 uniform sampler2D uDay, uClouds, uOcean, uDisp, uDayHi, uCloudsHi; uniform vec4 uCrop; uniform float uHi;` + DOMAIN + `
 // the full planet at standard detail, and a high-detail window over the region the orbit covers
@@ -134,13 +134,13 @@ float depth(float h, float Hs, float cz){
 vec3 sunT(float h, float cz){ return exp(-(BR * depth(h, HR, cz) + BM * 1.1 * depth(h, HM, cz))); }
 vec3 lin(vec3 c){ return pow(c, vec3(2.2)); }
 float cloudAt(vec3 n, vec2 dx, vec2 dy, out float inF, out vec2 du){
-  vec2 ll = dirToLL(n, uRot);
+  vec2 ll = dirToLL(n, uRot + uTour);
   float tc = cloudTex(ll, dx, dy);
   du = dirToDom(n);
   vec2 e = min(du, 1.0 - du);
   inF = uFluid * smoothstep(0.0, 0.04, min(e.x, e.y));
   if (inF <= 0.0) return tc;
-  vec2 dl = dirToLL(domToDir(du - texture(uDisp, du).xy * inF), uRot);
+  vec2 dl = dirToLL(domToDir(du - texture(uDisp, du).xy * inF), uRot + uTour);
   return cloudTex(dl, dx, dy);
 }
 void main(){
@@ -168,7 +168,7 @@ void main(){
   vec3 col = vec3(0.0);
   if (hit) {
     vec3 p = ro + rd * tp.x, n = normalize(p);
-    vec2 uv = dirToLL(n, 0.0), dx = dFdx(uv), dy = dFdy(uv);
+    vec2 uv = dirToLL(n, uTour), dx = dFdx(uv), dy = dFdy(uv);
     dx.x -= floor(dx.x + 0.5); dy.x -= floor(dy.x + 0.5);
     float ndl = dot(n, uSun);
     vec3 day = lin(dayTex(uv, dx, dy));
@@ -257,10 +257,10 @@ float n1(float x){ float i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f)
 void main(){
   float s = vSide;
   float life = vLife;
-  float shimmer = 0.62 + 0.38 * n1(vAlong * 0.09 - uTime * 7.0) * (0.7 + 0.3 * n1(vAlong * 0.31 + uTime * 3.0));
-  float core = exp(-s * s * 90.0) * pow(life, 1.2) * 4.0;
-  float body = exp(-s * s * 14.0) * pow(life, 1.8) * 0.45;
-  float glow = exp(-s * s * 3.0) * pow(life, 2.6) * 0.06;
+  float shimmer = 0.88 + 0.12 * n1(vAlong * 0.05 - uTime * 9.0);
+  float core = exp(-s * s * 60.0) * pow(life, 1.6) * 3.2;
+  float body = exp(-s * s * 10.0) * pow(life, 2.6) * 0.18;
+  float glow = exp(-s * s * 2.5) * pow(life, 3.5) * 0.015;
   o = vec4(vec3(1.0) * (core * shimmer + body * (0.6 + 0.4 * shimmer) + glow) * uGain, 1.0);
 }`;
   const V_SPARK = H + `in vec4 aA; in vec2 aB;` + V_PX + `uniform float uDpr;
@@ -273,8 +273,8 @@ void main(){
   if (vKind > 0.5) {
     // a four-pointed sparkle with concave sides and a hot centre
     vec2 a = abs(p); float star = pow(a.x, 0.5) + pow(a.y, 0.5);
-    v = smoothstep(1.0, 0.55, star) * 1.6 + exp(-dot(p, p) * 30.0) * 3.0;
-    v += (exp(-a.y * 60.0) * (1.0 - a.x) + exp(-a.x * 60.0) * (1.0 - a.y)) * 0.9;
+    v = smoothstep(0.7, 0.42, star) * 0.9 + exp(-dot(p, p) * 70.0) * 2.6;
+    v += (exp(-a.y * 110.0) * (1.0 - a.x) + exp(-a.x * 110.0) * (1.0 - a.y)) * 1.2;
   } else v = exp(-dot(p, p) * 9.0);
   o = vec4(vec3(1.0) * v * vI, 1.0);
 }`;
@@ -286,20 +286,17 @@ void main(){
   // the logo itself, in light
   vec2 su = vec2(0.5 + p.x / (uS * uTw), 0.5 - p.y / (uS * uTw));
   float logo = (su.x > 0.0 && su.x < 1.0 && su.y > 0.0 && su.y < 1.0) ? texture(uLogo, vec2(su.x, su.y)).a : 0.0;
-  float v = logo * (5.0 + 5.0 * uGlint);
+  float v = logo * 1.4;
   // a white-hot centre and its corona
-  v += exp(-r * r / (uS * uS * 0.0025)) * (10.0 + 16.0 * uGlint);
-  v += exp(-r / (uS * 0.10)) * (0.6 + 0.8 * uGlint);
-  v += exp(-r * r / (uS * uS * 0.5)) * 0.05;
+  v += exp(-r * r / (uS * uS * 0.0016)) * 9.0;
+  v += exp(-r / (uS * 0.07)) * 0.45;
+  v += exp(-r * r / (uS * uS * 0.25)) * 0.03;
   // cross flares along the star's own arms, long and thin, flaring on each glint
   vec2 a = abs(p);
   float L = uS * uFlare;
   float hx = exp(-a.y / 0.6) * exp(-pow(a.x / L, 1.3)), vy = exp(-a.x / 0.6) * exp(-pow(a.y / (L * 0.85), 1.3));
   float wide = exp(-a.y / 2.0) * exp(-a.x / (L * 0.45)) + exp(-a.x / 2.0) * exp(-a.y / (L * 0.4));
-  v += (hx + vy) * (2.4 + 3.5 * uGlint) + wide * 0.25;
-  // finer diagonal glints, only as it catches the light
-  vec2 d = vec2(p.x + p.y, p.x - p.y) * 0.7071; vec2 ad = abs(d);
-  v += (exp(-ad.y / 0.45) * exp(-ad.x / (L * 0.42)) + exp(-ad.x / 0.45) * exp(-ad.y / (L * 0.42))) * (0.25 + 2.6 * uGlint);
+  v += (hx + vy + wide) * 0.0;
   o = vec4(vec3(1.0) * v * uFade, 1.0);
 }`;
 
@@ -485,9 +482,25 @@ void main(){
   }
   // the spacecraft starts some way west of the noon point, so the planet below is in daylight with the
   // Sun high on the right and evening falling at the far left; its heading is set by where the Sun is
-  const A0 = almanac(clock0);
+  // the visitor's part of the world, roughly, from their clock alone (no location request)
+  const visitor = (() => {
+    const lon = -new Date().getTimezoneOffset() / 60 * 15 * DEG;
+    let tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    const south = /^America\/(Sao_Paulo|Argentina|Buenos_Aires|Santiago|Lima|Bogota|Montevideo|Asuncion|La_Paz|Caracas|Guayaquil|Recife|Fortaleza|Bahia|Manaus|Belem)/.test(tz);
+    const lat = /^Europe\//.test(tz) ? 48 : /^America\//.test(tz) ? (south ? -15 : 38) : /^Australia\//.test(tz) ? -28 : /^Africa\//.test(tz) ? 5
+      : /^Pacific\/(Auckland|Chatham)/.test(tz) ? -40 : /^Asia\//.test(tz) ? 28 : /^Atlantic\//.test(tz) ? 35 : 25;
+    return { lon, lat: lat * DEG };
+  })();
+  // the hour is set so the visitor's region sits in mid-morning light, with noon some way to the east
+  const clockV = (() => {
+    if (params.has('utc')) return clock0;
+    const a = almanac(clock0), sl = Math.atan2(a.sun[1], a.sun[0]);
+    let d = visitor.lon + 50 * DEG - sl; d = ((d + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+    return clock0 - d / (2 * Math.PI) * 86400000;
+  })();
+  const A0 = almanac(clockV);
   const subLat = Math.asin(A0.sun[2]), subLon = Math.atan2(A0.sun[1], A0.sun[0]);
-  const LAT0 = Math.max(-45 * DEG, Math.min(50 * DEG, subLat + 14 * DEG)), LON0 = subLon - 50 * DEG, BETA = 14 * DEG;
+  const LAT0 = Math.max(-45 * DEG, Math.min(50 * DEG, params.has('utc') ? subLat + 14 * DEG : visitor.lat)), LON0 = subLon - 50 * DEG, BETA = 14 * DEG;
   const s0 = [Math.cos(LAT0) * Math.cos(LON0), Math.cos(LAT0) * Math.sin(LON0), Math.sin(LAT0)];
   const uh = V.norm(V.add(A0.sun, V.sc(s0, -V.dot(A0.sun, s0)))), wv = V.cross(s0, uh);
   const f0 = V.add(V.sc(uh, Math.sin(BETA)), V.sc(wv, Math.cos(BETA)));
@@ -495,7 +508,7 @@ void main(){
   // high-detail window: half the globe in longitude and in latitude, centred ahead of the spacecraft,
   // cut straight out of the full-resolution maps so only the region in view is held on the GPU
   const crop = (() => {
-    const lonC = LON0 + 15 * DEG, latTop = Math.min(90 * DEG, Math.max(0, LAT0 + 55 * DEG));
+    const lonC = LON0 - 25 * DEG, latTop = Math.min(90 * DEG, Math.max(0, LAT0 + 55 * DEG));
     return [(((lonC - Math.PI / 2) / (2 * Math.PI) + 0.5) % 1 + 1) % 1, 0.5 - latTop / Math.PI, 0.5, 0.5];
   })();
   let hiOK = 0;
@@ -518,6 +531,7 @@ void main(){
     .then(() => { hiOK = 1; }).catch(e => console.warn('[earth] detail', e)) : Promise.resolve();
   const ORBIT = 0.0016;                               // radians of orbit per second
   const CLOUD = 0.00006;
+  const TOUR = 0.0006;                                // the slow tour: the ground turns beneath the sunlight, turns per second
                                 // the real cloud cover's slow drift, turns per second
 
   let W = 1, Hh = 1, DPR = 1, alt = 0.4, tanY = 0.4, wide = true, pitch = 0;
@@ -638,8 +652,8 @@ void main(){
       if (i) { L += Math.hypot(x - pts[i - 1][0], y - pts[i - 1][1]); tab.push(L); }
       pts.push([x, y]);
     }
-    Object.assign(comet, { pts, tab, L, M, start: t, speed: rnd(0.38, 0.50) * 1000, S: small ? 30 : 44,
-      TRAIL: small ? 1.4 : 1.8, hist: [], flying: true, nextGlint: t + rnd(0.5, 0.9), nextShed: t, dist: 0 });
+    Object.assign(comet, { pts, tab, L, M, start: t, speed: rnd(0.22, 0.28) * 1000, S: small ? 30 : 44,
+      TRAIL: small ? 0.8 : 1.0, hist: [], flying: true, nextGlint: t + rnd(0.5, 0.9), nextShed: t, dist: 0 });
   }
   function along(d) {
     const { tab, pts, M } = comet; let lo = 0, hi = M;
@@ -657,13 +671,14 @@ void main(){
         const p = along(d), q = along(Math.min(c.L, d + 2)), dl = Math.hypot(q[0] - p[0], q[1] - p[1]) || 1, tx = (q[0] - p[0]) / dl, ty = (q[1] - p[1]) / dl;
         c.x = p[0]; c.y = p[1]; c.e = d / c.L;
         c.hist.push([p[0], p[1], t, d]);
+        // small ice crystals shed from the head: sharp, brief, catching the light as they tumble away
         while (t >= c.nextShed) {
-          c.nextShed += rnd(0.03, 0.07);
-          const off = rnd(-1, 1) * S * 0.3;
-          c.parts.push({ k: 1, x: p[0] - ty * off, y: p[1] + tx * off, vx: -tx * rnd(4, 18) + rnd(-8, 8), vy: -ty * rnd(4, 18) + rnd(0, 16), b: t, life: rnd(0.7, 1.5), r: rnd(0.35, 0.75) * S, rot: rnd(-0.3, 0.3), spin: rnd(-1.2, 1.2), I: rnd(0.8, 1.6) });
-          for (let m = 0; m < 3; m++) c.parts.push({ k: 0, x: p[0] + rnd(-4, 4), y: p[1] + rnd(-4, 4), vx: rnd(-22, 22), vy: rnd(-8, 30), b: t, life: rnd(0.5, 1.4), r: rnd(3, 6), rot: 0, spin: 0, I: rnd(0.6, 1.6) });
+          c.nextShed += rnd(0.025, 0.05);
+          const off = rnd(-1, 1) * S * 0.2;
+          c.parts.push({ k: 1, x: p[0] - ty * off, y: p[1] + tx * off, vx: -tx * rnd(6, 20) + rnd(-10, 10), vy: -ty * rnd(6, 20) + rnd(-4, 14), b: t, life: rnd(0.5, 1.2), r: rnd(0.12, 0.32) * S, rot: rnd(-0.6, 0.6), spin: rnd(-2.5, 2.5), I: rnd(0.6, 1.3) });
+          if (Math.random() < 0.5) c.parts.push({ k: 0, x: p[0] + rnd(-3, 3), y: p[1] + rnd(-3, 3), vx: rnd(-16, 16), vy: rnd(-6, 22), b: t, life: rnd(0.4, 1.0), r: rnd(2, 3.5), rot: 0, spin: 0, I: rnd(0.5, 1.1) });
         }
-        if (t >= c.nextGlint) {
+        if (false && t >= c.nextGlint) {
           c.glintT = t; c.nextGlint = t + rnd(0.7, 1.5);
           const nb = 5 + (Math.random() * 4 | 0);
           for (let b = 0; b < nb; b++) { const a = rnd(0, 6.2832), sp = rnd(30, 80);
@@ -689,7 +704,7 @@ void main(){
         const a = h[Math.max(0, i - 1)], b = h[Math.min(h.length - 1, i + 1)];
         let tx = b[0] - a[0], ty = b[1] - a[1]; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
         const life = Math.max(0, 1 - (t - h[i][2]) / c.TRAIL);
-        const w = (S * 0.34) * (0.25 + 0.75 * Math.pow(life, 0.7)) + 1.5;
+        const w = (S * 0.12) * (0.3 + 0.7 * life) + 1.0;
         for (const sd of [-1, 1]) {
           trailData[n++] = h[i][0] - ty * w * sd; trailData[n++] = h[i][1] + tx * w * sd; trailData[n++] = sd; trailData[n++] = life; trailData[n++] = h[i][3];
         }
@@ -717,9 +732,9 @@ void main(){
     if (c.flying) {
       const e = c.e, fade = e < 0.05 ? e / 0.05 : e > 0.93 ? (1 - e) / 0.07 : 1;
       const g = Math.exp(-(t - c.glintT) / 0.22);
-      const tw = 1 + 0.05 * Math.sin(t * 11) + 0.03 * Math.sin(t * 29) + 0.22 * g;
-      const flare = (0.85 + 0.12 * Math.sin(t * 17)) * (1 + 1.3 * g);
-      P.head.use().f('uView', W, Hh).f('uPos', c.x, c.y).f('uQ', S * flare * 4.5).t('uLogo', 0, TX.logo)
+      const tw = 1 + 0.03 * Math.sin(t * 13);
+      const flare = 1;
+      P.head.use().f('uView', W, Hh).f('uPos', c.x, c.y).f('uQ', S * 1.6).t('uLogo', 0, TX.logo)
         .f('uS', S).f('uGlint', g).f('uTw', tw).f('uFade', fade).f('uFlare', flare);
       gl.bindVertexArray(c.vaoH); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
@@ -758,7 +773,7 @@ void main(){
   let tFix = frozen;
   const now = () => tFix !== null ? tFix : t;
   function draw(tt, dt) {
-    const rig = rigAt(tt), A = almanac(clock0 + tt * 1000);
+    const rig = rigAt(tt), A = almanac(clockV + tt * 1000);
     const rot = (tt * CLOUD) % 1;
     if (fl.on && fl.sim) {
       if (!fl.sim.primed) {
@@ -772,7 +787,7 @@ void main(){
     gl.disable(gl.BLEND);
     // the planet
     P.earth.use().f('uRes', canvas.width, canvas.height).f('uTanY', tanY).f('uAspect', W / Hh).f('uTex', texOK).f('uFluid', fl.on && fl.sim ? 1 : 0)
-      .f('uRot', rot).f('uExpo', 0.30).v('uC', rig.C).v('uF', rig.f).v('uRt', rig.right).v('uUp', rig.up).v('uSun', A.sun)
+      .f('uRot', rot).f('uTour', -tt * TOUR).f('uExpo', 0.30).v('uC', rig.C).v('uF', rig.f).v('uRt', rig.right).v('uUp', rig.up).v('uSun', A.sun)
       .v('uS', rig.s).v('uFh', rig.fH).v('uDom', fl.dom)
       .t('uDay', 0, TX.day).t('uClouds', 1, TX.clouds).t('uOcean', 2, TX.ocean).t('uDayHi', 5, TX.dayHi).t('uCloudsHi', 6, TX.cloudsHi).v('uCrop', crop).f('uHi', hiFade(tt))
       .t('uDisp', 3, fl.sim ? fl.sim.disp.read.tex : TX.ocean);
