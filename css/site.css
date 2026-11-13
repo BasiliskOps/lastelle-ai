@@ -111,16 +111,15 @@ p, li { text-wrap: pretty; }
   position: relative; overflow: hidden; isolation: isolate;
   height: calc(100svh - var(--s-900) - var(--gutter)); min-height: 560px; max-height: 1040px;
   border-radius: 24px;
-  background: var(--night);
+  background: #030406;
   box-shadow: 0 0 0 1px rgba(22,18,13,.55), 0 1px 0 1px rgba(255,255,255,.45), 0 40px 80px -40px rgba(40,24,8,.75), 0 16px 32px -16px rgba(40,24,8,.5);
 }
 .hero-canvas {
   position: absolute; inset: 0;
   --focus: 50%;
-  background:
-    radial-gradient(circle at var(--focus) 50%, rgba(120, 58, 17, .42) 0, rgba(96, 46, 14, .16) 24%, transparent 42%),
-    linear-gradient(180deg, #2F1708 0%, #140904 48%, #080403 100%);
+  background: radial-gradient(120% 60% at 60% 112%, #0a1a33 0, #050a14 45%, #030406 75%);
 }
+.hero-canvas[data-scene="earth"] canvas { transition-duration: 1200ms; }
 @media (min-width: 1024px), (orientation: landscape) { .hero-canvas { --focus: 67%; } }
 .hero-canvas canvas { display: block; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 400ms var(--ease); }
 .hero-canvas.ready canvas { opacity: 1; }
