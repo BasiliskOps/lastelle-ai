@@ -273,14 +273,15 @@ void main(){
   if (vKind > 0.5) {
     // a four-pointed sparkle with concave sides and a hot centre
     vec2 a = abs(p); float star = pow(a.x, 0.5) + pow(a.y, 0.5);
-    v = smoothstep(0.7, 0.42, star) * 0.9 + exp(-dot(p, p) * 70.0) * 2.6;
+    v = (1.0 - smoothstep(0.42, 0.7, star)) * 0.9 + exp(-dot(p, p) * 70.0) * 2.6;
     v += (exp(-a.y * 110.0) * (1.0 - a.x) + exp(-a.x * 110.0) * (1.0 - a.y)) * 1.2;
   } else v = exp(-dot(p, p) * 9.0);
+  v = max(v, 0.0) * (1.0 - smoothstep(0.8, 1.0, length(gl_PointCoord * 2.0 - 1.0)));
   o = vec4(vec3(1.0) * v * vI, 1.0);
 }`;
   const V_HEAD = H + `in vec2 aP;` + V_PX + `uniform vec2 uPos; uniform float uQ; out vec2 vP;
 void main(){ vP = aP * uQ; gl_Position = px(uPos + vP); }`;
-  const F_HEAD = H + `in vec2 vP; out vec4 o; uniform sampler2D uLogo; uniform float uS, uGlint, uTw, uFade, uFlare;
+  const F_HEAD = H + `in vec2 vP; out vec4 o; uniform sampler2D uLogo; uniform float uS, uGlint, uTw, uFade, uFlare, uQ;
 void main(){
   vec2 p = vP; float r = length(p);
   // the logo itself, in light
@@ -296,8 +297,9 @@ void main(){
   float L = uS * uFlare;
   float hx = exp(-a.y / 0.6) * exp(-pow(a.x / L, 1.3)), vy = exp(-a.x / 0.6) * exp(-pow(a.y / (L * 0.85), 1.3));
   float wide = exp(-a.y / 2.0) * exp(-a.x / (L * 0.45)) + exp(-a.x / 2.0) * exp(-a.y / (L * 0.4));
-  v += (hx + vy + wide) * 0.0;
-  o = vec4(vec3(1.0) * v * uFade, 1.0);
+
+  v *= 1.0 - smoothstep(0.6, 0.95, max(abs(vP.x), abs(vP.y)) / uQ);
+  o = vec4(vec3(1.0) * max(v, 0.0) * uFade, 1.0);
 }`;
 
   // ---- bloom and the final image
