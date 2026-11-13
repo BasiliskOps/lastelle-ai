@@ -286,7 +286,9 @@ void main(){
   vec2 p = vP; float r = length(p);
   // the logo itself, in light
   vec2 su = vec2(0.5 + p.x / (uS * uTw), 0.5 - p.y / (uS * uTw));
-  float logo = (su.x > 0.0 && su.x < 1.0 && su.y > 0.0 && su.y < 1.0) ? texture(uLogo, vec2(su.x, su.y)).a : 0.0;
+  // sampled outside any branch so the GPU's mip choice stays sane at the square's edges (Apple GPUs drew a line there)
+  float inside = step(0.0, su.x) * step(su.x, 1.0) * step(0.0, su.y) * step(su.y, 1.0);
+  float logo = texture(uLogo, clamp(su, 0.0, 1.0)).a * inside;
   float v = logo * 1.4;
   // a white-hot centre and its corona
   v += exp(-r * r / (uS * uS * 0.0016)) * 9.0;
