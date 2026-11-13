@@ -113,12 +113,14 @@ uniform vec3 uC, uF, uUp, uSun;
 uniform sampler2D uDay, uClouds, uOcean, uDisp, uDayHi, uCloudsHi; uniform vec4 uCrop; uniform float uHi;` + DOMAIN + `
 // the full planet at standard detail, and a high-detail window over the region the orbit covers
 bool inCrop(vec2 ll, out vec2 cu){ cu = vec2(fract(ll.x - uCrop.x) / uCrop.z, (ll.y - uCrop.y) / uCrop.w);
-  return uHi > 0.5 && cu.x > 0.002 && cu.x < 0.998 && cu.y > 0.002 && cu.y < 0.998; }
+  return uHi > 0.0 && cu.x > 0.002 && cu.x < 0.998 && cu.y > 0.002 && cu.y < 0.998; }
 float cloudTex(vec2 ll, vec2 dx, vec2 dy){ vec2 cu; ll.x = fract(ll.x);
-  if (inCrop(ll, cu)) return textureGrad(uCloudsHi, cu, dx / uCrop.zw, dy / uCrop.zw).r;
+  if (inCrop(ll, cu)) { float h = textureGrad(uCloudsHi, cu, dx / uCrop.zw, dy / uCrop.zw).r;
+    return uHi >= 1.0 ? h : mix(textureGrad(uClouds, ll, dx, dy).r, h, uHi); }
   return textureGrad(uClouds, ll, dx, dy).r; }
 vec3 dayTex(vec2 ll, vec2 dx, vec2 dy){ vec2 cu;
-  if (inCrop(ll, cu)) return textureGrad(uDayHi, cu, dx / uCrop.zw, dy / uCrop.zw).rgb;
+  if (inCrop(ll, cu)) { vec3 h = textureGrad(uDayHi, cu, dx / uCrop.zw, dy / uCrop.zw).rgb;
+    return uHi >= 1.0 ? h : mix(textureGrad(uDay, ll, dx, dy).rgb, h, uHi); }
   return textureGrad(uDay, ll, dx, dy).rgb; }
 const float PI = 3.14159265, R = 1.0, RA = 1.024, HR = 0.0034, HM = 0.0010;
 const vec3 BR = vec3(10.0, 25.0, 62.0); const float BM = 10.0, SUN = 22.0;
@@ -337,19 +339,25 @@ void main(){
 }`;
 
   // ===================================================================== GL plumbing
+  // every program is compiled and linked before any result is read back, so the driver can build them in
+  // parallel; with KHR_parallel_shader_compile the page waits for them without blocking the main thread
   let broken = false;
+  const parallel = gl.getExtension('KHR_parallel_shader_compile');
   function program(vs, fs, attrs) {
-    const mk = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.error('[earth]', gl.getShaderInfoLog(s), src.slice(0, 200)); broken = true; } return s; };
-    const p = gl.createProgram();
-    gl.attachShader(p, mk(gl.VERTEX_SHADER, vs)); gl.attachShader(p, mk(gl.FRAGMENT_SHADER, fs));
+    const mk = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+    const p = gl.createProgram(), sv = mk(gl.VERTEX_SHADER, vs), sf = mk(gl.FRAGMENT_SHADER, fs);
+    gl.attachShader(p, sv); gl.attachShader(p, sf);
     (attrs || ['aP']).forEach((a, i) => gl.bindAttribLocation(p, i, a));
     gl.linkProgram(p);
-    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) { console.error('[earth]', gl.getProgramInfoLog(p)); broken = true; }
+    const check = () => {
+      if (gl.getProgramParameter(p, gl.LINK_STATUS)) return;
+      [sv, sf].forEach(s => { if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error('[earth]', gl.getShaderInfoLog(s)); });
+      console.error('[earth]', gl.getProgramInfoLog(p)); broken = true;
+    };
     const L = {};
     const u = n => (n in L) ? L[n] : (L[n] = gl.getUniformLocation(p, n));
     return {
-      p, use() { gl.useProgram(p); return this; },
+      p, check, use() { gl.useProgram(p); return this; },
       f(n, ...v) { const l = u(n); if (l) gl['uniform' + v.length + 'f'](l, ...v); return this; },
       v(n, a) { const l = u(n); if (l) gl['uniform' + a.length + 'fv'](l, a); return this; },
       arr(n, a) { const l = u(n); if (l) gl.uniform4fv(l, a); return this; },
@@ -357,16 +365,19 @@ void main(){
     };
   }
   const P = {
+    earth: program(H + 'in vec2 aP; void main(){ gl_Position = vec4(aP, 0.0, 1.0); }', F_EARTH),
     advect: program(VSQ, F_ADVECT), div: program(VSQ, F_DIV), curl: program(VSQ, F_CURL), vort: program(VSQ, F_VORT),
     press: program(VSQ, F_PRESS), grad: program(VSQ, F_GRAD), scale: program(VSQ, F_SCALE), splat: program(VSQ, F_SPLAT),
     wind: program(VSQ, F_WIND), disp: program(VSQ, F_DISP),
-    earth: program(H + 'in vec2 aP; void main(){ gl_Position = vec4(aP, 0.0, 1.0); }', F_EARTH),
     star: program(V_STAR, F_STAR, ['aS']), line: program(V_LINE, F_LINE, ['aS']),
     trail: program(V_TRAIL, F_TRAIL, ['aA', 'aB']), spark: program(V_SPARK, F_SPARK, ['aA', 'aB']), head: program(V_HEAD, F_HEAD, ['aP']),
     pre: program(VSQ, F_PRE), down: program(VSQ, F_DOWN), up: program(VSQ, F_UP), comp: program(VSQ, F_COMP),
   };
-  if (broken) { fallback(); return; }
-
+  const progs = Object.values(P);
+  const compiled = () => !parallel || progs.every(q => gl.getProgramParameter(q.p, parallel.COMPLETION_STATUS_KHR));
+  const settle = () => { if (!compiled()) { requestAnimationFrame(settle); return; } progs.forEach(q => q.check()); if (broken) fallback(); else start(); };
+  settle();
+  function start() {
   host.dataset.scene = 'earth';
   host.appendChild(canvas);
 
@@ -501,9 +512,10 @@ void main(){
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
     if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
   }
-  const hi = hiSz ? Promise.all([window8k(TX.dayHi, 'earth/day-' + hiSz + '.jpg', false, hiSz), window8k(TX.cloudsHi, 'earth/clouds-' + hiSz + '.jpg', true, hiSz)])
+  let hiAt = -1;
+  const loaded = base.then(() => { texOK = 1; });
+  const hi = hiSz ? base.then(() => Promise.all([window8k(TX.dayHi, 'earth/day-' + hiSz + '.jpg', false, hiSz), window8k(TX.cloudsHi, 'earth/clouds-' + hiSz + '.jpg', true, hiSz)]))
     .then(() => { hiOK = 1; }).catch(e => console.warn('[earth] detail', e)) : Promise.resolve();
-  const loaded = Promise.all([base, hi]).then(() => { texOK = 1; if (fl.sim) fl.sim.primed = false; });
   const ORBIT = 0.0016;                               // radians of orbit per second
   const CLOUD = 0.00006;
                                 // the real cloud cover's slow drift, turns per second
@@ -736,13 +748,25 @@ void main(){
   }
 
   let t = 0, running = false, frameCount = 0;
+  // the detail maps ease in over a second and a half from the moment they are ready
+  function hiFade(tt) {
+    if (!hiOK) return 0;
+    if (tFix !== null) return 1;
+    const ms = performance.now(); if (hiAt < 0) hiAt = ms;
+    const x = Math.min(1, (ms - hiAt) / 1500); return x * x * (3 - 2 * x);
+  }
   let tFix = frozen;
   const now = () => tFix !== null ? tFix : t;
   function draw(tt, dt) {
     const rig = rigAt(tt), A = almanac(clock0 + tt * 1000);
     const rot = (tt * CLOUD) % 1;
     if (fl.on && fl.sim) {
-      if (!fl.sim.primed) { fl.fill = 1; for (let i = 0; i < 90; i++) fluidStep(1 / 30, tt - 3 + i / 30, rig, rot); fl.fill = 0; fl.sim.primed = true; }
+      if (!fl.sim.primed) {
+        const S = fl.sim; if (!S.pi) { S.pi = 0; S.pt = tt; }
+        const end = tFix !== null ? 90 : Math.min(90, S.pi + 30);
+        fl.fill = 1; for (; S.pi < end; S.pi++) fluidStep(1 / 30, S.pt - 3 + S.pi / 30, rig, rot); fl.fill = 0;
+        if (S.pi >= 90) { S.primed = true; S.pi = 0; }
+      }
       if (dt > 0) fluidStep(Math.min(dt, 1 / 30), tt, rig, rot);
     }
     gl.disable(gl.BLEND);
@@ -750,7 +774,7 @@ void main(){
     P.earth.use().f('uRes', canvas.width, canvas.height).f('uTanY', tanY).f('uAspect', W / Hh).f('uTex', texOK).f('uFluid', fl.on && fl.sim ? 1 : 0)
       .f('uRot', rot).f('uExpo', 0.30).v('uC', rig.C).v('uF', rig.f).v('uRt', rig.right).v('uUp', rig.up).v('uSun', A.sun)
       .v('uS', rig.s).v('uFh', rig.fH).v('uDom', fl.dom)
-      .t('uDay', 0, TX.day).t('uClouds', 1, TX.clouds).t('uOcean', 2, TX.ocean).t('uDayHi', 5, TX.dayHi).t('uCloudsHi', 6, TX.cloudsHi).v('uCrop', crop).f('uHi', hiOK)
+      .t('uDay', 0, TX.day).t('uClouds', 1, TX.clouds).t('uOcean', 2, TX.ocean).t('uDayHi', 5, TX.dayHi).t('uCloudsHi', 6, TX.cloudsHi).v('uCrop', crop).f('uHi', hiFade(tt))
       .t('uDisp', 3, fl.sim ? fl.sim.disp.read.tex : TX.ocean);
     gl.bindFramebuffer(gl.FRAMEBUFFER, hdr.fbo); gl.viewport(0, 0, hdr.w, hdr.h);
     gl.bindVertexArray(tri); gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -779,7 +803,8 @@ void main(){
   layout();
 
   const ready = () => { window.__heroReady = true; };
-  Promise.all([loaded, skyP]).then(() => {
+  const primedP = new Promise(res => { const c = () => (!fl.on || !fl.sim || fl.sim.primed || frozen !== null) ? res() : requestAnimationFrame(c); c(); });
+  Promise.all([loaded, skyP, primedP, frozen !== null ? hi : null]).then(() => {
     if (frozen !== null) {
       // a still for review: run the weather and, if asked, the star up to the requested moment
       if (fl.sim) fl.sim.primed = false;
@@ -808,4 +833,5 @@ void main(){
     draw(t, dt);
   }
   requestAnimationFrame(loop);
+  }
 })();

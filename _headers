@@ -6,3 +6,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
   Cross-Origin-Opener-Policy: same-origin
+
+/assets/earth/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/assets/orrery/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

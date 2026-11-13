@@ -433,7 +433,9 @@ void main(){
     if (setup()) draw(t); else host.classList.add('off');
   }, false);
 
-  Promise.all([loadImage('earth'), loadImage('moon')]).then(([earth, moon]) => {
+  // its maps are only fetched once the section is getting close, so they never compete with the hero
+  const near = new Promise(res => { const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); res(); } }, { rootMargin: '150% 0px' }); io.observe(host); });
+  near.then(() => Promise.all([loadImage('earth'), loadImage('moon')])).then(([earth, moon]) => {
     images = { earth, moon };
     if (!gl.isContextLost()) { maps.earth = upload(earth); maps.moon = upload(moon); }
     if (reduced) { new ResizeObserver(() => draw(t)).observe(host); draw(t); host.classList.add('ready'); return; }
