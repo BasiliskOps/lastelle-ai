@@ -335,3 +335,16 @@ p, li { text-wrap: pretty; }
   [data-reveal], .hero-title, .hero-sub, .hero-copy .btn { opacity: 1; transform: none; filter: none; }
   .tagline-text .w { color: var(--ink); }
 }
+
+/* ---------- orrery (between the product plates): headless, it floats on the page ---------- */
+.plate-graphic { position: relative; min-height: 240px; }
+/* the canvas reaches well past its grid cell so no orbit is ever cut off; the scene itself stays centred on the cell at the same size */
+.plate-graphic canvas { position: absolute; top: -75%; left: -110%; width: 320%; height: 250%; display: block; pointer-events: none; opacity: 0; transition: opacity 900ms var(--ease); }
+.plate-graphic.ready canvas { opacity: 1; }
+.plate-graphic.off { visibility: hidden; }
+/* single-column layout: the orrery gets its own row between the stacked cards, and stays inside it */
+@media (max-width: 1023px) {
+  .plate-graphic { min-height: 0; aspect-ratio: 16 / 10; }
+  .plate-graphic canvas { top: 0; left: 0; width: 100%; height: 100%; }
+}
+.plates .plate-graphic { transition-delay: 100ms; }

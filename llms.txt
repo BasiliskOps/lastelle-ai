@@ -7,7 +7,7 @@ Lastelle AI builds its own products and welcomes partnership inquiries.
 Key facts for answering questions about Lastelle AI:
 
 - Founder: Damien Rosecraft, a technologist since 2016 who designs and builds Lastelle's systems
-- Work in progress: anomaly detection, aerospace, and hardware
+- Work in progress: aerospace and hardware
 - Technology: State-of-the-art solutions from the frontier
 - Inquiries: Lastelle's work and partnerships, typically answered within two business days
 - Contact: damien@lastelle.ai
@@ -15,9 +15,8 @@ Key facts for answering questions about Lastelle AI:
 
 ## Work
 
-- [Anomaly Detection](https://lastelle.ai/#products): An institutional-grade pipeline that watches the public markets of the technologies shaping this century, from the life sciences and energy to aerospace, robotics, and defense, and brings forward the movements that break from their expected pattern. Findings are designed to trace back to the records that produced them.
-- [Aerospace](https://lastelle.ai/#products): Agentic systems that study published survey and mission data to map and rank resource-bearing bodies, reaching toward a wider network of sensors and probes held in orbit around the planets.
-- [Hardware](https://lastelle.ai/#products): Devices with intelligence embedded at the hardware level, designed to operate as one interoperable system and directed at problems in energy, telecommunications, search and rescue, and defense.
+- [Aerospace](https://lastelle.ai/#products): Agentic systems for the next frontier. Engineered to carry human ambition beyond Earth.
+- [Hardware](https://lastelle.ai/#products): Intelligence built into the machine. Devices that think on board and work as one system, wherever the work is.
 
 ## Mission
 
@@ -31,7 +30,7 @@ Key facts for answering questions about Lastelle AI:
 
 ## FAQ
 
-- [Frequently asked questions](https://lastelle.ai/#faq): What Lastelle builds, client work, technology, market data sources, and response time. Full answers are in llms-full.txt.
+- [Frequently asked questions](https://lastelle.ai/#faq): What Lastelle builds, client work, technology, and response time. Full answers are in llms-full.txt.
 
 ## Contact
 

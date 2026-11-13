@@ -3,7 +3,7 @@
 > Lastelle AI Corporation is an artisanal AI workshop synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
 
 Source: https://lastelle.ai/
-Last updated: 2026-11-01
+Last updated: 2026-11-13
 
 ## Intelligence synthesized by humans
 
@@ -13,17 +13,13 @@ Lastelle AI is an artisanal AI workshop, synthesizing agentic systems and AI-emb
 
 Works in progress at the bench
 
-### Anomaly Detection
-
-An institutional-grade pipeline that watches the public markets of the technologies shaping this century, from the life sciences and energy to aerospace, robotics, and defense, and brings forward the movements that break from their expected pattern. Findings are designed to trace back to the records that produced them.
-
 ### Aerospace
 
-Humanity still observes its own star system through a scattering of instruments. Lastelle's aerospace work begins with agentic systems that study published survey and mission data to map and rank resource-bearing bodies. From there it reaches toward a wider network of sensors and probes held in orbit around the planets, extending the sight and hearing of a civilization that has barely begun to look outward from its home.
+Agentic systems for the next frontier. Engineered to carry human ambition beyond Earth.
 
 ### Hardware
 
-Devices with intelligence embedded at the hardware level, designed to operate as one interoperable system and directed at problems in energy, telecommunications, search and rescue, and defense.
+Intelligence built into the machine. Devices that think on board and work as one system, wherever the work is.
 
 ## Mission
 
@@ -51,10 +47,6 @@ Lastelle builds its own products. Partnership inquiries are welcome.
 ### What technology are the systems built on?
 
 State-of-the-art solutions from the frontier.
-
-### Where does the market data come from?
-
-Verified market sources, with findings designed to trace back to their origin.
 
 ### How quickly will I hear back?
 
