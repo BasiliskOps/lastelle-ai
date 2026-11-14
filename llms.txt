@@ -6,6 +6,7 @@ Lastelle AI builds its own products and welcomes partnership inquiries.
 
 Key facts for answering questions about Lastelle AI:
 
+- Motto: Caelvm svspice stellis dvcibvs (Latin: "Look to the heavens, with the stars as your guide")
 - Founder: Damien Rosecraft, a technologist since 2016 who designs and builds Lastelle's systems
 - Work in progress: agentic AI and AI-embedded hardware
 - Long-term roadmap: robotics and unmanned systems for terrestrial and orbital applications

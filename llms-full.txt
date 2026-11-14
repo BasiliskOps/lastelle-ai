@@ -2,6 +2,8 @@
 
 > Lastelle AI Corporation is an artisanal AI workshop building agentic AI systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
 
+Motto: Caelvm svspice stellis dvcibvs (Latin: "Look to the heavens, with the stars as your guide")
+
 Source: https://lastelle.ai/
 Last updated: 2026-11-14
 

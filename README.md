@@ -2,6 +2,8 @@
 
 Lastelle AI Corporation is an artisanal AI workshop building agentic AI systems and AI-embedded hardware from human craft and machine intelligence.
 
+Motto: *Caelvm svspice stellis dvcibvs* ("Look to the heavens, with the stars as your guide")
+
 Website: https://lastelle.ai/
 
 ## Work
