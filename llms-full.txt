@@ -1,21 +1,21 @@
 # Lastelle AI
 
-> Lastelle AI Corporation is an artisanal AI workshop synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
+> Lastelle AI Corporation is an artisanal AI workshop building agentic AI systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
 
 Source: https://lastelle.ai/
-Last updated: 2026-11-13
+Last updated: 2026-11-14
 
 ## Intelligence synthesized by humans
 
-Lastelle AI is an artisanal AI workshop, synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence.
+Lastelle AI is an artisanal AI workshop, synthesizing agentic AI systems and AI-embedded hardware from human craft and machine intelligence.
 
 ## Products
 
 Works in progress at the bench
 
-### Aerospace
+### Agentic AI
 
-Agentic systems for the next frontier. Engineered to carry human ambition beyond Earth.
+Autonomous agents that plan, use tools, and carry the work through. Teams of models working as one, with every result checked before it leaves the bench.
 
 ### Hardware
 
@@ -26,6 +26,8 @@ Intelligence built into the machine. Devices that think on board and work as one
 For the acceleration of the human project
 
 Lastelle AI synthesizes solutions at the confluence of human judgment and machine intelligence, where intuition and conviction lend direction to computation on a scale no single mind could hold. Each system is composed with the deliberation of the workshop and carried out with the reach of the frontier, so that what leaves the bench extends what people are able to build, understand, and become.
+
+Further out, the path leads to aerospace: agentic systems and embedded hardware joined into one class of machine, sent out to watch over our star system.
 
 ## About
 
@@ -38,7 +40,11 @@ Lastelle AI Corporation was founded by Damien Rosecraft, a technologist since 20
 
 ### What does Lastelle AI build?
 
-Agentic systems and AI-embedded hardware, designed and built in-house.
+Agentic AI systems, autonomous agents that plan, use tools, and check their own work, and AI-embedded hardware, designed and built in-house.
+
+### What is agentic AI?
+
+Agentic AI is software that works toward a goal on its own. Instead of answering a single prompt, an agent plans the steps, uses tools and data, checks its results, and adjusts until the job is done.
 
 ### Does Lastelle AI take client work?
 

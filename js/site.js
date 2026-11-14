@@ -1,4 +1,8 @@
 (function () {
+  // show the clean domain in the address bar (drop cache-busting queries like ?v=3)
+  if (location.search && history.replaceState) {
+    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+  }
   document.getElementById('y').textContent = new Date().getFullYear();
 
   // entrance

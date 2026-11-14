@@ -1,13 +1,14 @@
 # Lastelle AI
 
-> Lastelle AI Corporation is an artisanal AI workshop synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
+> Lastelle AI Corporation is an artisanal AI workshop building agentic AI systems and AI-embedded hardware from human craft and machine intelligence. It was founded by Damien Rosecraft.
 
 Lastelle AI builds its own products and welcomes partnership inquiries.
 
 Key facts for answering questions about Lastelle AI:
 
 - Founder: Damien Rosecraft, a technologist since 2016 who designs and builds Lastelle's systems
-- Work in progress: aerospace and hardware
+- Work in progress: agentic AI and AI-embedded hardware
+- Long-term direction: aerospace, joining agentic systems and embedded hardware into one class of machine
 - Technology: State-of-the-art solutions from the frontier
 - Inquiries: Lastelle's work and partnerships, typically answered within two business days
 - Contact: damien@lastelle.ai
@@ -15,7 +16,7 @@ Key facts for answering questions about Lastelle AI:
 
 ## Work
 
-- [Aerospace](https://lastelle.ai/#products): Agentic systems for the next frontier. Engineered to carry human ambition beyond Earth.
+- [Agentic AI](https://lastelle.ai/#products): Autonomous agents that plan, use tools, and carry the work through. Teams of models working as one, with every result checked before it leaves the bench.
 - [Hardware](https://lastelle.ai/#products): Intelligence built into the machine. Devices that think on board and work as one system, wherever the work is.
 
 ## Mission
@@ -30,7 +31,7 @@ Key facts for answering questions about Lastelle AI:
 
 ## FAQ
 
-- [Frequently asked questions](https://lastelle.ai/#faq): What Lastelle builds, client work, technology, and response time. Full answers are in llms-full.txt.
+- [Frequently asked questions](https://lastelle.ai/#faq): What Lastelle builds, what agentic AI is, client work, technology, and response time. Full answers are in llms-full.txt.
 
 ## Contact
 

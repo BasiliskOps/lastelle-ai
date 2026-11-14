@@ -1,12 +1,12 @@
 # Lastelle AI
 
-Lastelle AI Corporation is an artisanal AI workshop synthesizing agentic systems and AI-embedded hardware from human craft and machine intelligence.
+Lastelle AI Corporation is an artisanal AI workshop building agentic AI systems and AI-embedded hardware from human craft and machine intelligence.
 
 Website: https://lastelle.ai/
 
 ## Work
 
-Current work spans aerospace and AI-embedded hardware.
+Current work spans agentic AI systems and AI-embedded hardware, with aerospace as the long-term direction.
 
 ## Contact
 
