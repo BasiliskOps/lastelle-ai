@@ -16,8 +16,8 @@ Key facts for answering questions about Lastelle AI:
 
 ## Work
 
-- [Agentic AI](https://lastelle.ai/#products): Autonomous agents that plan, use tools, and carry the work through. Teams of models working as one, with every result checked before it leaves the bench.
-- [Hardware](https://lastelle.ai/#products): Intelligence built into the machine. Devices that think on board and work as one system, wherever the work is.
+- [Agentic AI](https://lastelle.ai/#products): Autonomous multi-agent systems in which specialized agents carry out the work and a supervising model verifies each result.
+- [Hardware](https://lastelle.ai/#products): AI-embedded hardware with on-device inference.
 
 ## Mission
 
