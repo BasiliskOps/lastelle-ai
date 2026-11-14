@@ -24,4 +24,6 @@ npx esbuild@0.24.0 js/hero.js --bundle --format=esm --minify --target=es2020 --o
 
 with `three@0.170.0` installed so the `three` imports resolve.
 
+The products orrery is `js/orrery.js` (plain WebGL2, no build step): the Sun and the eight planets, orbiting continuously. Its surface maps in `assets/orrery/` are derived from NASA LRO/LOLA lunar data (public domain) and [Solar System Scope](https://www.solarsystemscope.com/textures/) Earth textures, licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
 The hero (`js/earth.js`, plain WebGL2, no build step) renders Earth from orbit. Its maps in `assets/earth/` are derived from [Solar System Scope](https://www.solarsystemscope.com/textures/) Earth textures (via the three.js examples), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

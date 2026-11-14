@@ -10,6 +10,7 @@
   --ink-2: #51483A;
   --ink-3: #8A7F6D;
   --rule: rgba(22, 18, 13, 0.13);
+  --amber: #C57420;
   --bone: #F2E8D7;
   --night: #131209;
   --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
@@ -41,11 +42,11 @@ body {
 a { color: inherit; text-decoration: none; }
 h1, h2, h3 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
-::selection { background: rgba(22, 18, 13, 0.14); }
+::selection { background: rgba(197, 116, 32, 0.25); }
 .skip { position: absolute; left: -9999px; }
 .skip:focus { left: var(--s-200); top: var(--s-200); z-index: 100; background: var(--paper-hi); padding: var(--s-75) var(--s-100); border-radius: 8px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; border-radius: 4px; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -171,11 +172,11 @@ p, li { text-wrap: pretty; }
 .head { display: grid; gap: var(--s-300); margin-bottom: var(--s-600); }
 @media (min-width: 1024px) { .head { margin-bottom: var(--s-700); } }
 .eyebrow { margin: 0; display: flex; align-items: center; gap: var(--s-100); font: 500 12px/16px var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-2); }
-.eyebrow i { width: 8px; height: 8px; flex: none; border-radius: 9999px; background: var(--ink); box-shadow: 0 0 0 4px rgba(22,18,13,.10); animation: halo-pulse 3.2s ease-in-out infinite; }
-@keyframes halo-pulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(22,18,13,.08); }
-  18% { box-shadow: 0 0 0 4px rgba(22,18,13,.20); }
-  52% { box-shadow: 0 0 0 4px rgba(22,18,13,.08); }
+.eyebrow i { width: 8px; height: 8px; flex: none; border-radius: 9999px; background: var(--amber); box-shadow: 0 0 0 4px rgba(197,116,32,.13); animation: amber-halo-pulse 3.2s ease-in-out infinite; }
+@keyframes amber-halo-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(197,116,32,.10); }
+  18% { box-shadow: 0 0 0 4px rgba(197,116,32,.30); }
+  52% { box-shadow: 0 0 0 4px rgba(197,116,32,.10); }
 }
 @media (prefers-reduced-motion: reduce) { .eyebrow i { animation: none; } }
 .statement { margin: 0; max-width: 26ch; font-weight: 500; font-size: 30px; line-height: 36px; letter-spacing: -0.03em; }
@@ -183,7 +184,7 @@ p, li { text-wrap: pretty; }
 
 /* ---------- plates ---------- */
 .plates { display: grid; gap: var(--s-200); }
-@media (min-width: 1024px) { .plates { grid-template-columns: repeat(2, 1fr); gap: var(--s-300); } }
+@media (min-width: 1024px) { .plates { grid-template-columns: repeat(3, 1fr); gap: var(--s-300); } }
 .plate {
   display: flex; flex-direction: column; padding: var(--s-400);
   border-radius: 16px;
@@ -209,7 +210,7 @@ p, li { text-wrap: pretty; }
 .atom-bg { fill: none; }
 .atom .shell { fill: none; stroke: var(--ink-3); stroke-width: 0.75; opacity: .7; }
 .atom .e { fill: var(--ink); }
-.atom .nucleus { fill: var(--ink); }
+.atom .nucleus { fill: var(--amber); }
 .atom .orbit { transform-origin: 28px 28px; transform-box: view-box; animation: orbit 24s linear infinite; }
 .atom .o1 { animation-duration: 36s; animation-direction: reverse; }
 .atom .o2 { animation-duration: 52s; }
@@ -334,7 +335,18 @@ p, li { text-wrap: pretty; }
   .tagline-text .w { color: var(--ink); }
 }
 
-
+/* ---------- orrery (between the product plates): headless, it floats on the page ---------- */
+.plate-graphic { position: relative; min-height: 240px; }
+/* the canvas reaches well past its grid cell so no orbit is ever cut off; the scene itself stays centred on the cell at the same size */
+.plate-graphic canvas { position: absolute; top: -75%; left: -110%; width: 320%; height: 250%; display: block; pointer-events: none; opacity: 0; transition: opacity 900ms var(--ease); }
+.plate-graphic.ready canvas { opacity: 1; }
+.plate-graphic.off { visibility: hidden; }
+/* single-column layout: the orrery gets its own row between the stacked cards, and stays inside it */
+@media (max-width: 1023px) {
+  .plate-graphic { min-height: 0; aspect-ratio: 16 / 10; }
+  .plate-graphic canvas { top: 0; left: 0; width: 100%; height: 100%; }
+}
+.plates .plate-graphic { transition-delay: 100ms; }
 
 /* ---------- mission footnote ---------- */
 .about-copy p.mission-note { margin-top: var(--s-300); padding-top: var(--s-200); box-shadow: inset 0 1px 0 var(--rule); font-size: 14px; line-height: 22px; color: var(--ink-3); max-width: 56ch; }
