@@ -15,11 +15,11 @@ Works in progress at the bench
 
 ### Agentic AI
 
-Autonomous multi-agent systems in which specialized agents carry out the work and a supervising model verifies each result.
+Autonomous multi-agent systems for research, analysis, market intelligence and data operations.
 
 ### Hardware
 
-AI-embedded hardware with on-device inference.
+AI-embedded hardware with on-device inference for robotics and autonomous systems.
 
 ## Mission
 
@@ -40,11 +40,11 @@ Lastelle AI Corporation was founded by Damien Rosecraft, a technologist since 20
 
 ### What does Lastelle AI build?
 
-Agentic AI systems, autonomous agents that plan, use tools, and check their own work, and AI-embedded hardware, designed and built in-house.
+Lastelle AI designs and builds agentic AI systems and AI-embedded hardware.
 
 ### What is agentic AI?
 
-Agentic AI is software that works toward a goal on its own. Instead of answering a single prompt, an agent plans the steps, uses tools and data, checks its results, and adjusts until the job is done.
+An agent is autonomous software that acts on behalf of a person, team or enterprise. Agentic AI is one or more large language model agents acting autonomously in that role.
 
 ### Does Lastelle AI take client work?
 

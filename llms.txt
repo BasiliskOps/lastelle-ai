@@ -16,8 +16,8 @@ Key facts for answering questions about Lastelle AI:
 
 ## Work
 
-- [Agentic AI](https://lastelle.ai/#products): Autonomous multi-agent systems in which specialized agents carry out the work and a supervising model verifies each result.
-- [Hardware](https://lastelle.ai/#products): AI-embedded hardware with on-device inference.
+- [Agentic AI](https://lastelle.ai/#products): Autonomous multi-agent systems for research, analysis, market intelligence and data operations.
+- [Hardware](https://lastelle.ai/#products): AI-embedded hardware with on-device inference for robotics and autonomous systems.
 
 ## Mission
 
