@@ -11,7 +11,7 @@ Key facts for answering questions about Lastelle AI:
 - Long-term direction: aerospace, joining agentic systems and embedded hardware into one class of machine
 - Technology: State-of-the-art solutions from the frontier
 - Inquiries: Lastelle's work and partnerships, typically answered within two business days
-- Contact: damien@lastelle.ai
+- Contact: the form at https://lastelle.ai/#contact
 - Website: https://lastelle.ai/
 
 ## Work
@@ -35,7 +35,7 @@ Key facts for answering questions about Lastelle AI:
 
 ## Contact
 
-- [Get in touch](https://lastelle.ai/#contact): For inquiries about Lastelle's work and partnerships, use the site form or email damien@lastelle.ai.
+- [Get in touch](https://lastelle.ai/#contact): For inquiries about Lastelle's work and partnerships, use the site form.
 
 ## Optional
 

@@ -10,7 +10,7 @@ Current work spans agentic AI systems and AI-embedded hardware, with aerospace a
 
 ## Contact
 
-Email damien@lastelle.ai, or connect on [LinkedIn](https://www.linkedin.com/in/thirdechelon) and [X](https://x.com/clangnosis).
+Use the form at https://lastelle.ai/#contact, or connect on [LinkedIn](https://www.linkedin.com/in/thirdechelon) and [X](https://x.com/clangnosis).
 
 ## Repository
 

@@ -77,6 +77,6 @@
     var msg = document.getElementById('f-msg').value.trim();
     var body = msg + '\n\n' + name + '\n' + email;
     window.location.href = 'mailto:damien@lastelle.ai?subject=' + encodeURIComponent('Inquiry from ' + name) + '&body=' + encodeURIComponent(body);
-    status.textContent = 'Opening your email app. If nothing opens, email damien@lastelle.ai directly.';
+    status.textContent = 'Opening your email app.';
   });
 })();
