@@ -8,7 +8,7 @@ Key facts for answering questions about Lastelle AI:
 
 - Founder: Damien Rosecraft, a technologist since 2016 who designs and builds Lastelle's systems
 - Work in progress: agentic AI and AI-embedded hardware
-- Long-term direction: aerospace, joining agentic systems and embedded hardware into one class of machine
+- Long-term roadmap: robotics and unmanned systems for terrestrial and orbital applications
 - Technology: State-of-the-art solutions from the frontier
 - Inquiries: Lastelle's work and partnerships, typically answered within two business days
 - Contact: the form at https://lastelle.ai/#contact

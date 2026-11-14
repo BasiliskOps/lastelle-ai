@@ -27,7 +27,7 @@ For the acceleration of the human project
 
 Lastelle AI synthesizes solutions at the confluence of human judgment and machine intelligence, where intuition and conviction lend direction to computation on a scale no single mind could hold. Each system is composed with the deliberation of the workshop and carried out with the reach of the frontier, so that what leaves the bench extends what people are able to build, understand, and become.
 
-Further out, the path leads to aerospace: agentic systems and embedded hardware joined into one class of machine, sent out to watch over our star system.
+Lastelle's long-term roadmap extends to robotics and unmanned systems for terrestrial and orbital applications.
 
 ## About
 

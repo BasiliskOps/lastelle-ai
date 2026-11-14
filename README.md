@@ -6,7 +6,7 @@ Website: https://lastelle.ai/
 
 ## Work
 
-Current work spans agentic AI systems and AI-embedded hardware, with aerospace as the long-term direction.
+Current work spans agentic AI systems and AI-embedded hardware, with robotics and unmanned systems on the long-term roadmap.
 
 ## Contact
 
