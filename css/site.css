@@ -118,7 +118,7 @@ p, li { text-wrap: pretty; }
 .hero { padding: var(--s-900) var(--gutter) 0; }
 .hero-card {
   position: relative; overflow: hidden; isolation: isolate;
-  height: calc(100svh - var(--s-900) - var(--gutter)); min-height: 560px; max-height: 1040px;
+  height: calc(var(--svh, 1svh) * 100 - var(--s-900) - var(--gutter)); min-height: 560px; max-height: 1040px;
   border-radius: 24px;
   background: #030406;
   box-shadow: 0 0 0 1px rgba(0,0,0,.7), 0 1px 0 1px rgba(255,255,255,.06), 0 40px 80px -40px rgba(0,0,0,.9), 0 16px 32px -16px rgba(0,0,0,.7);
@@ -150,7 +150,7 @@ p, li { text-wrap: pretty; }
 /* stacked hero on portrait screens: scene on top, copy below, never overlapping */
 @media (max-width: 1023px) and (orientation: portrait) {
   .hero-card { display: flex; flex-direction: column; height: auto; min-height: 0; max-height: none; }
-  .hero-canvas { position: relative; inset: auto; flex: none; height: min(62svh, 120vw); }
+  .hero-canvas { position: relative; inset: auto; flex: none; height: min(calc(var(--svh, 1svh) * 62), 120vw); }
   .hero-copy { position: relative; left: auto; right: auto; bottom: auto; max-width: none; padding: 0 var(--pad) var(--s-600); margin-top: calc(var(--s-400) * -1); }
 }
 @media (max-width: 1023px) and (orientation: landscape) {
@@ -160,7 +160,7 @@ p, li { text-wrap: pretty; }
 }
 @media (orientation: landscape) and (max-height: 560px) {
   .hero { padding-top: var(--s-800); }
-  .hero-card { height: calc(100svh - var(--s-800) - var(--gutter)); min-height: 300px; }
+  .hero-card { height: calc(var(--svh, 1svh) * 100 - var(--s-800) - var(--gutter)); min-height: 300px; }
   .hero-copy { bottom: var(--s-300); max-width: 46%; }
   .hero-title { font-size: 30px; line-height: 36px; margin-bottom: var(--s-100); }
   .hero-sub { font-size: 14px; line-height: 20px; margin-bottom: var(--s-200); }

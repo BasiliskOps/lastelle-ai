@@ -5,6 +5,31 @@
   }
   document.getElementById('y').textContent = new Date().getFullYear();
 
+  // steady viewport height for the hero. In-app browsers (X, Instagram) open links in a
+  // sheet whose height changes as it is dragged, and 100svh follows the drag frame by frame.
+  // Measure svh once, keep it for the life of the page, and only re-measure when the width
+  // changes (rotation) or a height change has settled. Touch devices only ever grow it, so
+  // collapsing the sheet leaves the hero alone. Regular browsers keep svh fixed, so for them
+  // the value set here is the same one CSS would have used.
+  (function () {
+    var root = document.documentElement, probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+    document.body.appendChild(probe);
+    var touch = window.matchMedia('(pointer: coarse)').matches;
+    var w = window.innerWidth, h = 0, settle = 0;
+    function measure(grow) {
+      var v = probe.getBoundingClientRect().height;
+      if (!v || (grow && v <= h)) return;
+      h = v; root.style.setProperty('--svh', (v / 100) + 'px');
+    }
+    measure(false);
+    window.addEventListener('resize', function () {
+      clearTimeout(settle);
+      if (window.innerWidth !== w) { w = window.innerWidth; h = 0; measure(false); return; }
+      settle = setTimeout(function () { measure(touch); }, 250);
+    });
+  })();
+
   // entrance
   requestAnimationFrame(function () { setTimeout(function () { document.body.classList.add('loaded'); }, 80); });
   var canvasHost = document.getElementById('hero-canvas');
